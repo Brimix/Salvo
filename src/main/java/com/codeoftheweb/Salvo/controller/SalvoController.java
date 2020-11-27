@@ -1,5 +1,6 @@
 package com.codeoftheweb.Salvo.controller;
 
+import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.repository.*;
 import com.codeoftheweb.Salvo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class SalvoController {
+    // Declaration of repositories
     @Autowired
     private PlayerRepository player_rep;
     @Autowired
@@ -23,7 +25,10 @@ public class SalvoController {
     private GamePlayerRepository gp_rep;
     @Autowired
     private ShipRepository ship_rep;
+    @Autowired
+    private SalvoRepository salvo_rep;
 
+    // Api to get JSON for each of the classes
     @RequestMapping("/players")
     public List<Map<String, Object>> getAllPlayers() {
         return player_rep.findAll().stream()
@@ -48,11 +53,21 @@ public class SalvoController {
                 .map(s -> ShipDTO.makeDTO(s))
                 .collect(toList());
     }
-
-    @RequestMapping("/game_view/{gameplayer_id}")
-    public Map<String, Object> getGameView(@PathVariable Long gameplayer_id) {
-        return GamePlayerDTO.gameView(gp_rep.findById(gameplayer_id).get());
+    @RequestMapping("/salvoes")
+    public List<Map<String, Object>> getAllSalvoes() {
+        return salvo_rep.findAll().stream()
+                .map(s -> SalvoDTO.makeDTO(s))
+                .collect(toList());
     }
+
+    // Game View for Task 3
+    @RequestMapping("/game_view/{gamePlayer_id}")
+    public Map<String, Object> getGameView(@PathVariable Long gamePlayer_id) {
+        GamePlayer gp_buscado = gp_rep.findById(gamePlayer_id).get();
+        return GamePlayerDTO.gameView(gp_buscado);
+    }
+
+    // Game View for Task 4
     @RequestMapping("/game_fullview/{gameplayer_id}")
     public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id) {
         return GamePlayerDTO.gameFullView(gp_rep.findById(gameplayer_id).get());

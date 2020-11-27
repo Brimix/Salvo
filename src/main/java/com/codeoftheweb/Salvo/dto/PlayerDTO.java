@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PlayerDTO {
+    // Required from GamePlayerDTO.makeDTO
     public static Map<String, Object> makeDTO(Player player){
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", player.getId());

@@ -9,12 +9,15 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 public class GamePlayerDTO {
+    // Required from GameDTO.makeDTO
     public static Map<String, Object> makeDTO(GamePlayer gamePlayer){
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", gamePlayer.getId());
-        dto.put("player", PlayerDTO.makeDTO(gamePlayer.getPlayer()));
+        dto.put("player", PlayerDTO.makeDTO(gamePlayer.getPlayer())  );
         return dto;
     }
+
+    // Game View DTO for Task 3
     public static Map<String, Object> gameView(GamePlayer gamePlayer){
         Map<String, Object> dto = GameDTO.makeDTO(gamePlayer.getGame());
         dto.put("ships", gamePlayer.getShips().stream()
@@ -22,6 +25,8 @@ public class GamePlayerDTO {
                 .collect(toList()));
         return dto;
     }
+
+    // Game View DTO for Task 4
     public static Map<String, Object> gameFullView(GamePlayer gamePlayer){
         Game game = gamePlayer.getGame();
         Map<String, Object> dto = GameDTO.makeDTO(game);
@@ -39,20 +44,4 @@ public class GamePlayerDTO {
         dto.put("salvoes", salvoMap);
         return dto;
     }
-    /*
-    private static Map<String, Object> salvoView(GamePlayer gamePlayer){
-        Map<String, Object> dto = new LinkedHashMap<>();
-
-        dto.put("player", gamePlayer.getPlayer());
-        dto.put("salvoes", gamePlayer.getSalvoes().stream()
-                            .map(s -> SalvoDTO.makeDTO(s))
-                            .collect(toList()));
-
-        dto.put(gamePlayer.getPlayer().getId().toString(),
-                gamePlayer.getSalvoes().stream()
-                .map(s -> SalvoDTO.makeDTO(s))
-                .collect(toList()));
-        return dto;
-    }
-    */
 }

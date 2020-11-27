@@ -8,6 +8,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 public class GameDTO {
+    // GameDTO for Task2
     public static Map<String, Object> makeDTO(Game game){
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", game.getId());
