@@ -30,20 +30,22 @@ function loadData(){
                 })
             });
 
-            data.salvoes[playerInfo[0].id].forEach(function(salvoPiece){
-                salvoPiece.locations.forEach(function(salvoLocation){
-                    $('#R'+salvoLocation).addClass('salvo');
-                })
-            });
-            data.salvoes[playerInfo[1].id].forEach(function(salvoPiece){
-                salvoPiece.locations.forEach(function(salvoLocation){
-                    if($('#'+salvoLocation).hasClass('ship-piece')){
-                        $('#'+salvoLocation).addClass('ship-piece-hit');
-                    }
-                    else{
-                        $('#'+salvoLocation).addClass('salvo');
-                    }
-                })
+            data.salvoes.forEach(function(salvoPiece){
+                if(salvoPiece.player == playerInfo[0].id){
+                    salvoPiece.locations.forEach(function(salvoLocation){
+                        $('#R'+salvoLocation).addClass('salvo');
+                    })
+                }
+                else{
+                    salvoPiece.locations.forEach(function(salvoLocation){
+                        if($('#'+salvoLocation).hasClass('ship-piece')){
+                            $('#'+salvoLocation).addClass('ship-piece-hit');
+                        }
+                        else{
+                            $('#'+salvoLocation).addClass('salvo');
+                        }
+                    })
+                }
             });
 
         })
