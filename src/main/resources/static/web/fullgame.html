@@ -5,23 +5,29 @@
     <title>Battle Boards</title>
     <link rel="stylesheet" type="text/css" href="./css/game.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+    body {
+      background-image: url('img/Sea.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    </style>
 </head>
 <body>
-<div>
+
+<div class="container">
     <center> <h2> Players </h2> </center>
     <center> <span id="playerInfo"></span> </center>
     <center> <span id="playerText"></span> </center>
-</div>
-<div class="container">
     <div class="row">
         <div class="col">
             <section>
-                <h2> Your ships </h2>
-                <table border="1" style="width:400px;height:400px">
+                <center><h2> Your ships </h2> </center>
+                <center> <table border="1" style="width:440px;height:440px;background-color: rgba(255, 255, 255, 0.5)">
                     <thead>
-                    <th></th>
-                    <th id="th_0">1</th><th id="th_1">2</th><th id="th_2">3</th><th id="th_3">4</th><th id="th_4">5</th>
-                    <th id="th_5">6</th><th id="th_6">7</th><th id="th_7">8</th><th id="th_8">9</th><th id="th_9">10</th>
+                    <th width="40px"></th>
+                    <th id="th_0" width="40px">1</th><th id="th_1" width="40px">2</th><th id="th_2" width="40px">3</th><th id="th_3" width="40px">4</th><th id="th_4" width="40px">5</th>
+                    <th id="th_5" width="40px">6</th><th id="th_6" width="40px">7</th><th id="th_7" width="40px">8</th><th id="th_8" width="40px">9</th><th id="th_9" width="40px">10</th>
                     </thead>
                     <tbody>
                     <tr>
@@ -75,17 +81,17 @@
                         <td id="J6"></td><td id="J7"></td><td id="J8"></td><td id="J9"></td><td id="J10"></td>
                     </tr>
                     </tbody>
-                </table>
+                </table> </center>
             </section>
         </div>
         <div class="col">
             <section>
-                <h2> Shots on Rival </h2>
-                <table border="1" style="width:400px;height:400px">
+                <center> <h2> Shots on Rival </h2> </center>
+                <center> <table border="1" style="width:440px;height:440px;background-color: rgba(255, 255, 255, 0.5)">
                     <thead>
-                    <th></th>
-                    <th id="th_10">1</th><th id="th_11">2</th><th id="th_12">3</th><th id="th_13">4</th><th id="th_14">5</th>
-                    <th id="th_15">6</th><th id="th_16">7</th><th id="th_17">8</th><th id="th_18">9</th><th id="th_19">10</th>
+                    <th width="40px"></th>
+                    <th id="th_10" width="40px">1</th><th id="th_11" width="40px">2</th><th id="th_12" width="40px">3</th><th id="th_13" width="40px">4</th><th id="th_14" width="40px">5</th>
+                    <th id="th_15" width="40px">6</th><th id="th_16" width="40px">7</th><th id="th_17" width="40px">8</th><th id="th_18" width="40px">9</th><th id="th_19" width="40px">10</th>
                     </thead>
                     <tbody>
                     <tr>
@@ -139,7 +145,7 @@
                         <td id="RJ6"></td><td id="RJ7"></td><td id="RJ8"></td><td id="RJ9"></td><td id="RJ10"></td>
                     </tr>
                     </tbody>
-                </table>
+                </table> </center>
             </section>
         </div>
     </div>
