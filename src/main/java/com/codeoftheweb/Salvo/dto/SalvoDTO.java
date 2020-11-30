@@ -10,6 +10,7 @@ public class SalvoDTO {
         Map<String, Object> dto = new LinkedHashMap<>();
         // dto.put("id", salvo.getId());
         dto.put("turn", salvo.getTurn());
+        dto.put("player", salvo.getGamePlayer().getPlayer().getId());
         dto.put("locations", salvo.getLocations());
         return dto;
     }
