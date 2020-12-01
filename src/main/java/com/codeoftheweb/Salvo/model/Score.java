@@ -25,9 +25,9 @@ public class Score {
 
     //~ Constructors
     public Score(){}
-    public Score(double score, Date finished, Player player, Game game) {
+    public Score(double score, Player player, Game game) {
         this.score = score;
-        this.finished = finished;
+        this.finished = new Date();
         player.addScore(this);
         game.addScore(this);
 //        this.player = player;
