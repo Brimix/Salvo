@@ -25,10 +25,10 @@ public class SalvoApplication {
 			ShipRepository ship_rep,
 			SalvoRepository salvo_rep){
 		return (args) -> {
-			Player A = new Player("Angela", "angie@proyecto.acc");
-			Player B = new Player("Brian", "brian@proyecto.acc");
-			Player C = new Player("Carlos", "charles@proyecto.acc");
-			Player D = new Player("Daniela", "dani@proyecto.acc");
+			Player P1 = new Player("Angela", "angie@proyecto.acc");
+			Player P2 = new Player("Brian", "brian@proyecto.acc");
+			Player P3 = new Player("Carlos", "charles@proyecto.acc");
+			Player P4 = new Player("Daniela", "dani@proyecto.acc");
 
 			Date current = new Date();
 			Game G1 = new Game(current); current = Date.from(current.toInstant().plusSeconds(3600));
@@ -40,24 +40,17 @@ public class SalvoApplication {
 			Game G7 = new Game(current); current = Date.from(current.toInstant().plusSeconds(3600));
 			Game G8 = new Game(current); current = Date.from(current.toInstant().plusSeconds(3600));
 
-			GamePlayer GP1 = new GamePlayer(A, G1); GamePlayer GP2 = new GamePlayer(B, G1);
-			GamePlayer GP3 = new GamePlayer(A, G2); GamePlayer GP4 = new GamePlayer(B, G2);
-			GamePlayer GP5 = new GamePlayer(B, G3); GamePlayer GP6 = new GamePlayer(D, G3);
-			GamePlayer GP7 = new GamePlayer(B, G4); GamePlayer GP8 = new GamePlayer(A, G4);
-			GamePlayer GP9 = new GamePlayer(D, G5); GamePlayer GP10 = new GamePlayer(A, G5);
-			GamePlayer GP11 = new GamePlayer(C, G6); GamePlayer GP12 = new GamePlayer();
-			GamePlayer GP13 = new GamePlayer(D, G7); GamePlayer GP14 = new GamePlayer();
-			GamePlayer GP15 = new GamePlayer(C, G8); GamePlayer GP16 = new GamePlayer(D, G8);
-
-			/*
-			Ship SA = new Ship("Acorazado", GP1, Arrays.asList("A1", "A2", "A3"));
-			Ship SB = new Ship("Mercante", GP1, Arrays.asList("A2", "D2"));
-			Ship SC = new Ship("Galeon", GP1, Arrays.asList("H3", "H4", "H5", "H6"));
-			Ship SD = new Ship("Acorazado", GP2, Arrays.asList("A6", "A7", "A8"));
-			*/
+			GamePlayer GP1 = new GamePlayer(P1, G1); GamePlayer GP2 = new GamePlayer(P2, G1);
+			GamePlayer GP3 = new GamePlayer(P1, G2); GamePlayer GP4 = new GamePlayer(P2, G2);
+			GamePlayer GP5 = new GamePlayer(P2, G3); GamePlayer GP6 = new GamePlayer(P4, G3);
+			GamePlayer GP7 = new GamePlayer(P2, G4); GamePlayer GP8 = new GamePlayer(P1, G4);
+			GamePlayer GP9 = new GamePlayer(P4, G5); GamePlayer GP10 = new GamePlayer(P1, G5);
+			GamePlayer GP11 = new GamePlayer(P3, G6); GamePlayer GP12 = new GamePlayer();
+			GamePlayer GP13 = new GamePlayer(P4, G7); GamePlayer GP14 = new GamePlayer();
+			GamePlayer GP15 = new GamePlayer(P3, G8); GamePlayer GP16 = new GamePlayer(P4, G8);
 
 			// Juego 1
-			Ship S1 = new Ship("Destroyer", GP1, List.of("H2", "H3", "H4"));
+			Ship S1 = new Ship("Destroyer", GP1, Arrays.asList("H2", "H3", "H4"));
 			Ship S2 = new Ship("Submarine", GP1, Arrays.asList("E1", "F1", "G1"));
 			Ship S3 = new Ship("Patrol Boat", GP1, Arrays.asList("B4", "B5"));
 			Ship S4 = new Ship("Destroyer", GP2, Arrays.asList("B5", "C5", "D5"));
@@ -118,8 +111,8 @@ public class SalvoApplication {
 			Salvo T20 = new Salvo(GP10, 2, Arrays.asList("C6", "D6", "E6"));
 			Salvo T21 = new Salvo(GP10, 3, Arrays.asList("H1", "H8"));
 
-			// player_rep.save(A); player_rep.save(B); player_rep.save(C);
-			player_rep.saveAll(Arrays.asList(A, B, C, D));
+			// Saving to Repositories
+			player_rep.saveAll(Arrays.asList(P1, P2, P3, P4));
 			game_rep.saveAll(Arrays.asList(G1, G2, G3, G4, G5, G6, G7, G8));
 			gp_rep.saveAll(Arrays.asList(
 					 GP1,  GP2,  GP3,  GP4,  GP5,  GP6,  GP7,  GP8,  GP9, GP10,
