@@ -1,6 +1,7 @@
 package com.codeoftheweb.Salvo.controller;
 
 import com.codeoftheweb.Salvo.model.GamePlayer;
+import com.codeoftheweb.Salvo.model.Player;
 import com.codeoftheweb.Salvo.repository.*;
 import com.codeoftheweb.Salvo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +40,7 @@ public class SalvoController {
                 .map(p -> PlayerDTO.makeDTO(p))
                 .collect(toList());
     }
-    @RequestMapping("/games")
+//    @RequestMapping("/games")
     public List<Map<String, Object>> getAllGames(){
         return game_rep.findAll().stream()
                 .map(g -> GameDTO.makeDTO(g))
@@ -84,8 +87,21 @@ public class SalvoController {
     // Leaderboard for Task 5
     @RequestMapping("/leaderboard")
     public List<Map<String, Object>> getLeaderboard() {
-        return player_rep.findAll().stream()
+        return player_rep.findAll().stream().sorted(Comparator
+                .comparingDouble(Player::getTotal)
+                .reversed()
+                )
                 .map(p -> PlayerDTO.PlayerScoreDTO(p))
                 .collect(toList());
     }
+
+    @RequestMapping("/games")
+    public Map<String, Object> getGamesLeaderBoard() {
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("games", game_rep.findAll().stream()
+                        .map(g -> GameDTO.makeDTO(g))
+                        .collect(toList()));
+        return data;
+    }
+
 }
