@@ -70,18 +70,18 @@ public class Player {
                 .findFirst().get();
     }
     public double getTotal(){
-        return getWins() * 1.0 + getDraws() * 0.5 + getLoses() * 0.0;
+        return getWins() * 1.0D + getDraws() * 0.5D + getLoses() * 0.0D;
     }
     public long getWins(){
         return getScores().stream().map(s -> s.getScore())
-                .filter(s -> s == 1).count();
+                .filter(s -> s == 1.0D).count();
     }
     public long getDraws(){
         return getScores().stream().map(s -> s.getScore())
-                .filter(s -> s == 0.5).count();
+                .filter(s -> s == 0.5D).count();
     }
     public long getLoses(){
         return getScores().stream().map(s -> s.getScore())
-                .filter(s -> s == 0).count();
+                .filter(s -> s == 0.0D).count();
     }
 }
