@@ -80,4 +80,12 @@ public class SalvoController {
     public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id) {
         return GamePlayerDTO.gameFullView(gp_rep.findById(gameplayer_id).get());
     }
+
+    // Leaderboard for Task 5
+    @RequestMapping("/leaderboard")
+    public List<Map<String, Object>> getLeaderBoard() {
+        return player_rep.findAll().stream()
+                .map(p -> PlayerDTO.PlayerScoreDTO(p))
+                .collect(toList());
+    }
 }

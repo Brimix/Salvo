@@ -14,4 +14,16 @@ public class PlayerDTO {
         dto.put("email", player.getEmail());
         return dto;
     }
+    public static Map<String, Object> PlayerScoreDTO(Player player) {
+        Map<String, Object> dto = new LinkedHashMap<>();
+        Map<String, Object> score = new LinkedHashMap<>();
+        dto.put("id", player.getId());
+        dto.put("email", player.getEmail());
+        score.put("total", player.getTotal());
+        score.put("won", player.getWins());
+        score.put("tied", player.getDraws());
+        score.put("lost", player.getLoses());
+        dto.put("score", score);
+        return dto;
+    }
 }
