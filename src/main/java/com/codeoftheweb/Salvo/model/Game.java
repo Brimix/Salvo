@@ -36,6 +36,8 @@ public class Game {
     public void setCreated(Date created) { this.created = created; }
     public Set<GamePlayer> getGamePlayers() { return gamePlayers; }
     public void setGamePlayers(Set<GamePlayer> gamePlayers) { this.gamePlayers = gamePlayers; }
+    public Set<Score> getScores() { return scores; }
+    public void setScores(Set<Score> scores) { this.scores = scores; }
 
     //~ Methods
     public void addGamePlayer(GamePlayer gamePlayer){
