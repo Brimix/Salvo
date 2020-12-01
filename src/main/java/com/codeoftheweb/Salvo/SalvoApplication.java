@@ -23,7 +23,8 @@ public class SalvoApplication {
 			GameRepository game_rep,
 			GamePlayerRepository gp_rep,
 			ShipRepository ship_rep,
-			SalvoRepository salvo_rep){
+			SalvoRepository salvo_rep,
+			ScoreRepository score_rep){
 		return (args) -> {
 			Player P1 = new Player("Angela", "angie@proyecto.acc");
 			Player P2 = new Player("Brian", "brian@proyecto.acc");
@@ -111,6 +112,13 @@ public class SalvoApplication {
 			Salvo T20 = new Salvo(GP10, 2, Arrays.asList("C6", "D6", "E6"));
 			Salvo T21 = new Salvo(GP10, 3, Arrays.asList("H1", "H8"));
 
+			Score K1 = GP1.getScore(1);
+			Score K2 = GP2.getScore(1);
+			Score K3 = GP3.getScore(1);
+			Score K4 = GP4.getScore(1);
+			Score K5 = GP5.getScore(1);
+			Score K6 = GP6.getScore(1);
+
 			// Saving to Repositories
 			player_rep.saveAll(Arrays.asList(P1, P2, P3, P4));
 			game_rep.saveAll(Arrays.asList(G1, G2, G3, G4, G5, G6, G7, G8));
@@ -125,6 +133,9 @@ public class SalvoApplication {
 					 T1,  T2,  T3,  T4,  T5,  T6,  T7,  T8,  T9, T10,
 					T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
 					T21));
+			score_rep.saveAll(Arrays.asList(
+					K1,  K2,  K3,  K4,  K5,  K6
+			));
 		};
 	}
 }
