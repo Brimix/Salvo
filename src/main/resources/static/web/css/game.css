@@ -1,15 +1,11 @@
 .ship-piece{
-    background-color: mediumpurple;
+    background-color: #3366ff;
 }
 
 .ship-piece-hited{
-    background-color: darkmagenta;
+    background-color: #660066;
 }
 
 .salvo{
-
-}
-
-.salvo-piece{
-    background-color: crimson;
+    background-color: #ff0066;
 }
