@@ -56,7 +56,7 @@ function updateLeaderboardView(data) {
 function loadData() {
     $.get("/api/games")
         .done(function(data) {
-          updateGamesView(data);
+          updateGamesView(data.games);
         })
         .fail(function( jqXHR, textStatus ) {
           alert( "Failed: " + textStatus );
