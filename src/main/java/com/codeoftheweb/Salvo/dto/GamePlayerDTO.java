@@ -13,7 +13,7 @@ public class GamePlayerDTO {
     public static Map<String, Object> makeDTO(GamePlayer gamePlayer){
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", gamePlayer.getId());
-        dto.put("player", PlayerDTO.makeDTO(gamePlayer.getPlayer())  );
+        dto.put("player", PlayerDTO.makeDTO(gamePlayer.getPlayer()));
         return dto;
     }
 
@@ -33,7 +33,6 @@ public class GamePlayerDTO {
         dto.put("ships", gamePlayer.getShips().stream()
                 .map(s -> ShipDTO.makeDTO(s))
                 .collect(toList()));
-
 
         Set<Salvo> allSalvoes = new HashSet<>();
         for(GamePlayer gp : game.getGamePlayers())
