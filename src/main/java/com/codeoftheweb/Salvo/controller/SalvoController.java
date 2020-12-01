@@ -83,7 +83,7 @@ public class SalvoController {
 
     // Leaderboard for Task 5
     @RequestMapping("/leaderboard")
-    public List<Map<String, Object>> getLeaderBoard() {
+    public List<Map<String, Object>> getLeaderboard() {
         return player_rep.findAll().stream()
                 .map(p -> PlayerDTO.PlayerScoreDTO(p))
                 .collect(toList());
