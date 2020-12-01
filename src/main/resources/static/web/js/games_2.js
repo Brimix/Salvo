@@ -29,7 +29,7 @@ function loadData() {
       alert( "Failed: " + textStatus );
     });
   
-  $.get("/api/leaderBoard")
+  $.get("/api/leaderboard")
     .done(function(data) {
         console.log(data)
       updateViewLBoard(data);
