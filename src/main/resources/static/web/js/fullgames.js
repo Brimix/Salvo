@@ -10,7 +10,7 @@ function updateGamesView(data) {
             +'</li>';
     }).join('');*/
     let htmlGames =
-            '<center> <table border="1" style="width:100%">'
+            '<center> <table border="1" style="width:90%;background-color: rgba(255, 255, 255, 0.5)">'
             + '<thead> <th width="10%">ID</th>'
             + '<th width="20%">Start Time</th>'
             + '<th width="35%">Player 1</th>'
@@ -30,7 +30,7 @@ function updateGamesView(data) {
 }
 function updateLeaderboardView(data) {
     let htmlTable =
-        '<center> <table border="2" style="width:100%">'
+        '<center> <table border="2" style="width:90%;background-color: rgba(255, 255, 255, 0.5)">'
         + '<thead> <th width="55%">Player</th>'
         + '<th width="10%">W</th>'
         + '<th width="10%">D</th>'
