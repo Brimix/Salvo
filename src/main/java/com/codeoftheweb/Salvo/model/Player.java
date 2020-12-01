@@ -19,6 +19,8 @@ public class Player {
 
     @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
+    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
+    private Set<Score> scores;
 
     //~ Constructors
     public Player() {}
@@ -43,11 +45,17 @@ public class Player {
     }
     public Set<GamePlayer> getGamePlayers() { return gamePlayers; }
     public void setGamePlayers(Set<GamePlayer> gamePlayers) { this.gamePlayers = gamePlayers; }
+    public Set<Score> getScores() { return scores; }
+    public void setScores(Set<Score> scores) { this.scores = scores; }
 
     //~ Methods
     public void addGamePlayer(GamePlayer gamePlayer){
         gamePlayer.setPlayer(this);
-        getGamePlayers().add(gamePlayer);
+        gamePlayers.add(gamePlayer);
+    }
+    public void addScore(Score score){
+        score.setPlayer(this);
+        scores.add(score);
     }
     @JsonIgnore
     public List<Game> getGames() {

@@ -17,6 +17,8 @@ public class Game {
 
     @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    private Set<Score> scores;
 
     //~ Constructors
     public Game() {
@@ -38,6 +40,10 @@ public class Game {
     public void addGamePlayer(GamePlayer gamePlayer){
         gamePlayer.setGame(this);
         gamePlayers.add(gamePlayer);
+    }
+    public void addScore(Score score){
+        score.setGame(this);
+        scores.add(score);
     }
     public List<Player> getPlayers() {
         return getGamePlayers().stream()
