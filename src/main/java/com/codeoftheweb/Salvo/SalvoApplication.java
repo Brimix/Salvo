@@ -112,12 +112,12 @@ public class SalvoApplication {
 			Salvo T20 = new Salvo(GP10, 2, Arrays.asList("C6", "D6", "E6"));
 			Salvo T21 = new Salvo(GP10, 3, Arrays.asList("H1", "H8"));
 
-			Score K1 = GP1.getScore(1);
-			Score K2 = GP2.getScore(1);
-			Score K3 = GP3.getScore(1);
-			Score K4 = GP4.getScore(1);
-			Score K5 = GP5.getScore(1);
-			Score K6 = GP6.getScore(1);
+			Score K1 = GP1.getScore(1.0D);
+			Score K2 = GP2.getScore(0.0D);
+			Score K3 = GP3.getScore(0.5D);
+			Score K4 = GP4.getScore(0.5D);
+			Score K5 = GP5.getScore(1.0D);
+			Score K6 = GP6.getScore(0.0D);
 
 			// Saving to Repositories
 			player_rep.saveAll(Arrays.asList(P1, P2, P3, P4));
