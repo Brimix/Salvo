@@ -10,6 +10,8 @@ public class ScoreDTO {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", score.getId());
         dto.put("score", score.getScore());
+        dto.put("player", score.getPlayer().getId());
+        dto.put("game", score.getGame().getId());
         return dto;
     }
 }

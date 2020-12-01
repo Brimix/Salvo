@@ -27,6 +27,8 @@ public class SalvoController {
     private ShipRepository ship_rep;
     @Autowired
     private SalvoRepository salvo_rep;
+    @Autowired
+    private ScoreRepository score_rep;
 
     // Api to get JSON for each of the classes
     @RequestMapping("/players")
@@ -57,6 +59,12 @@ public class SalvoController {
     public List<Map<String, Object>> getAllSalvoes() {
         return salvo_rep.findAll().stream()
                 .map(s -> SalvoDTO.makeDTO(s))
+                .collect(toList());
+    }
+    @RequestMapping("/scores")
+    public List<Map<String, Object>> getAllScores() {
+        return score_rep.findAll().stream()
+                .map(s -> ScoreDTO.makeDTO(s))
                 .collect(toList());
     }
 
