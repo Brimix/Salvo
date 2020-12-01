@@ -27,7 +27,8 @@ public class Player {
     public Player(String name, String email) {
         this.name = name;
         this.email = email;
-        setGamePlayers(new HashSet<>());
+        this.gamePlayers = new HashSet<>();
+        this.scores = new HashSet<>();
     }
 
     public Long getId() {
@@ -62,5 +63,25 @@ public class Player {
         return getGamePlayers().stream()
                 .map(sub -> sub.getGame())
                 .collect(toList());
+    }
+    public Score getScore(Game game){
+        return scores.stream()
+                .filter(s -> s.getGame() == game)
+                .findFirst().get();
+    }
+    public double getTotal(){
+        return getWins() * 1.0 + getDraws() * 0.5 + getLoses() * 0.0;
+    }
+    public long getWins(){
+        return getScores().stream().map(s -> s.getScore())
+                .filter(s -> s == 1).count();
+    }
+    public long getDraws(){
+        return getScores().stream().map(s -> s.getScore())
+                .filter(s -> s == 0.5).count();
+    }
+    public long getLoses(){
+        return getScores().stream().map(s -> s.getScore())
+                .filter(s -> s == 0).count();
     }
 }

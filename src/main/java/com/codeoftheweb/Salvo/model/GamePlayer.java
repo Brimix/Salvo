@@ -58,4 +58,9 @@ public class GamePlayer {
         salvo.setGamePlayer(this);
         salvoes.add(salvo);
     }
+    public Score getScore(int ended){
+        if(ended == 0)
+            return null;
+        return new Score(new Random().nextDouble(), player, game);
+    }
 }

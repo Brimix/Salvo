@@ -27,7 +27,8 @@ public class Game {
     }
     public Game(Date date) {
         this.created = date;
-        this.gamePlayers = new HashSet<GamePlayer>();
+        this.gamePlayers = new HashSet<>();
+        this.scores = new HashSet<>();
     }
 
     public long getId() { return id; }
