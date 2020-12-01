@@ -8,7 +8,7 @@ function getParameterByName(name) {
 };
 
 function loadData(){
-    $.get('/api/game_fullview/'+getParameterByName('gp'))
+    $.get('/api/game_fullview/' + getParameterByName('gp'))
         .done(function(data) {
             let playerInfo;
             if(Object.keys(data.gamePlayers).length > 1){
