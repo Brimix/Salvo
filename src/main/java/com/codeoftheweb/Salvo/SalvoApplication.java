@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 
 import java.util.*;
 
@@ -26,10 +28,10 @@ public class SalvoApplication {
 			SalvoRepository salvo_rep,
 			ScoreRepository score_rep){
 		return (args) -> {
-			Player P1 = new Player("Angela", "angie@proyecto.acc");
-			Player P2 = new Player("Brian", "brian@proyecto.acc");
-			Player P3 = new Player("Carlos", "charles@proyecto.acc");
-			Player P4 = new Player("Daniela", "dani@proyecto.acc");
+			Player P1 = new Player("Angela", "angie@proyecto.acc","angie");
+			Player P2 = new Player("Brian", "brian@proyecto.acc", "brian");
+			Player P3 = new Player("Carlos", "charles@proyecto.acc", "charles");
+			Player P4 = new Player("Daniela", "dani@proyecto.acc", "dani");
 
 			Date current = new Date();
 			Game G1 = new Game(current); current = Date.from(current.toInstant().plusSeconds(3600));
@@ -138,4 +140,9 @@ public class SalvoApplication {
 			));
 		};
 	}
+}
+
+@Configuration
+class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
+
 }
