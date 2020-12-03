@@ -41,12 +41,12 @@ public class SalvoApplication {
 			GamePlayerRepository gp_rep,
 			ShipRepository ship_rep,
 			SalvoRepository salvo_rep,
-			ScoreRepository score_rep){
+			ScoreRepository score_rep ){
 		return (args) -> {
 			Player P1 = new Player("Angela", "angie@proyecto.acc", passwordEncoder().encode("angie"));
-			Player P2 = new Player("Brian", "brian@proyecto.acc", "brian");
-			Player P3 = new Player("Carlos", "charles@proyecto.acc", "charles");
-			Player P4 = new Player("Daniela", "dani@proyecto.acc", "dani");
+			Player P2 = new Player("Brian", "brian@proyecto.acc", passwordEncoder().encode("brian"));
+			Player P3 = new Player("Carlos", "charles@proyecto.acc", passwordEncoder().encode("charles"));
+			Player P4 = new Player("Daniela", "dani@proyecto.acc", passwordEncoder().encode("dani"));
 
 			Date current = new Date();
 			Game G1 = new Game(current); current = Date.from(current.toInstant().plusSeconds(3600));
