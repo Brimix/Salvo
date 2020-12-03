@@ -28,7 +28,6 @@ import java.util.*;
 
 @SpringBootApplication
 public class SalvoApplication {
-
 	public static void main(String[] args){
 		SpringApplication.run(SalvoApplication.class, args);
 		System.out.println("Server is up!\n");
@@ -155,6 +154,7 @@ public class SalvoApplication {
 			));
 		};
 	}
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -188,9 +188,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/api/**").permitAll()
 			.antMatchers("/web/**").permitAll()
-			.antMatchers("/**").hasAuthority("USER");
+			.antMatchers("/api/games").permitAll()
+			.antMatchers("/api/leaderBoard").permitAll()
+			.antMatchers("/api/game_view").hasAuthority("USER");
 		http.formLogin()
 				.usernameParameter("name")
 				.passwordParameter("pwd")
