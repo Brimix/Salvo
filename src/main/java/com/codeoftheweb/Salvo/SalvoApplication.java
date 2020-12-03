@@ -43,7 +43,7 @@ public class SalvoApplication {
 			SalvoRepository salvo_rep,
 			ScoreRepository score_rep){
 		return (args) -> {
-			Player P1 = new Player("Angela", "angie@proyecto.acc","angie");
+			Player P1 = new Player("Angela", "angie@proyecto.acc", passwordEncoder().encode("angie"));
 			Player P2 = new Player("Brian", "brian@proyecto.acc", "brian");
 			Player P3 = new Player("Carlos", "charles@proyecto.acc", "charles");
 			Player P4 = new Player("Daniela", "dani@proyecto.acc", "dani");
@@ -168,15 +168,15 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(inputEmail-> {
-			Player player = playerRepository.findByEmail(inputEmail);
+		auth.userDetailsService(inputName-> {
+			Player player = playerRepository.findByEmail(inputName);
 			if (player != null) {
 				System.out.println("Player found!\n");
 				return new User(player.getEmail(), player.getPassword(),
 						AuthorityUtils.createAuthorityList("USER"));
 			} else {
 				System.out.println("Player not found!\n");
-				throw new UsernameNotFoundException("Unknown user: " + inputEmail);
+				throw new UsernameNotFoundException("Unknown user: " + inputName);
 			}
 		});
 	}
@@ -188,7 +188,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/api/games").permitAll()
+			.antMatchers("/api/**").permitAll()
 			.antMatchers("/web/**").permitAll()
 			.antMatchers("/**").hasAuthority("USER");
 		http.formLogin()
