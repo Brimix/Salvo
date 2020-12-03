@@ -5,6 +5,7 @@ import com.codeoftheweb.Salvo.model.Player;
 import com.codeoftheweb.Salvo.repository.*;
 import com.codeoftheweb.Salvo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,10 @@ public class SalvoController {
     private SalvoRepository salvo_rep;
     @Autowired
     private ScoreRepository score_rep;
+
+    // Declaration of encoder
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     // Api to get JSON for each of the classes
     @RequestMapping("/players")
