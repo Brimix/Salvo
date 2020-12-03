@@ -41,7 +41,8 @@ $('#login-form').on('submit', function (event) {
 
     } else if (submitButton == "signup") {
         $.post("/api/players",
-            { email: $("#username").val(),
+            {   name: cutBody($("#username").val()),
+                email: $("#username").val(),
                 password: $("#password").val() })
             .done(function(data) {
                 console.log("signup ok");
@@ -88,6 +89,10 @@ $('#login-form').on('submit', function (event) {
         //no button pressed
     }
 });
+
+function cutBody(email){
+    return email.slice(0, email.indexOf("@"));
+}
 
 $('#logout-form').on('submit', function (event) {
         event.preventDefault();
