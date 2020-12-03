@@ -99,12 +99,11 @@ public class SalvoController {
 
     @RequestMapping("/games")
     public Map<String, Object> getGamesPlayer(Authentication authentication) {
-        Player player = isGuest(authentication) ?
-                        player_rep.findByEmail(authentication.getName()) :
-                        new Player("Guest", "Guest", "");
-
         Map<String, Object> data = new LinkedHashMap<>();
-        data.put("player", player.getEmail());
+        data.put("player",
+                !isGuest(authentication) ?
+                PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName())):
+                "guest");
         data.put("games", game_rep.findAll().stream()
                         .map(g -> GameDTO.makeDTO(g))
                         .collect(toList()));
