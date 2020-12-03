@@ -74,14 +74,15 @@ public class SalvoController {
     }
 
     // Game View for Task 3
-    @RequestMapping("/game_view/{gamePlayer_id}")
-    public Map<String, Object> getGameView(@PathVariable Long gamePlayer_id) {
-        GamePlayer gp = gp_rep.findById(gamePlayer_id).get();
-        return GamePlayerDTO.gameView(gp);
-    }
+//    @RequestMapping("/game_view/{gamePlayer_id}")
+//    public Map<String, Object> getGameView(@PathVariable Long gamePlayer_id) {
+//        GamePlayer gp = gp_rep.findById(gamePlayer_id).get();
+//        return GamePlayerDTO.gameView(gp);
+//    }
 
     // Game View for Task 4
-    @RequestMapping("/game_fullview/{gameplayer_id}")
+//    @RequestMapping("/game_fullview/{gameplayer_id}")
+    @RequestMapping("/game_view/{gameplayer_id}")
     public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id) {
         return GamePlayerDTO.gameFullView(gp_rep.findById(gameplayer_id).get());
     }
