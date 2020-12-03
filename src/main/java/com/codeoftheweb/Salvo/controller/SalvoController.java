@@ -87,7 +87,7 @@ public class SalvoController {
     }
 
     // Leaderboard for Task 5
-    @RequestMapping("/leaderboard")
+    @RequestMapping("/leaderBoard")
     public List<Map<String, Object>> getLeaderboard() {
         return player_rep.findAll().stream().sorted(Comparator
                 .comparingDouble(Player::getTotal)
@@ -103,7 +103,7 @@ public class SalvoController {
         data.put("player",
                 !isGuest(authentication) ?
                 PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName())):
-                "guest");
+                "Guest");
         data.put("games", game_rep.findAll().stream()
                         .map(g -> GameDTO.makeDTO(g))
                         .collect(toList()));
