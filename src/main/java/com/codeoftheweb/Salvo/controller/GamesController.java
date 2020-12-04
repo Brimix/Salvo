@@ -67,12 +67,12 @@ public class GamesController {
     @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
         if(isGuest(authentication))
-            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
 
         Player player = player_rep.findByEmail(authentication.getName());
         GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
         if(player != gamePlayer.getPlayer())
-            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.FORBIDDEN);;
+            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
 
 
         return new ResponseEntity<>(GamePlayerDTO.gameFullView(gamePlayer), HttpStatus.ACCEPTED);
