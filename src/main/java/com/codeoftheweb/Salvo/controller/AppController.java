@@ -37,10 +37,6 @@ public class AppController {
     @Autowired
     private ScoreRepository score_rep;
 
-    // Declaration of encoder
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     // Api to get JSON for each of the classes
     @RequestMapping("/players")
     public List<Map<String, Object>> getAllPlayers() {
@@ -84,8 +80,16 @@ public class AppController {
     // Game View for Task 4
 //    @RequestMapping("/game_fullview/{gameplayer_id}")
     @RequestMapping("/game_view/{gameplayer_id}")
-    public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id) {
-        return GamePlayerDTO.gameFullView(gp_rep.findById(gameplayer_id).get());
+    public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
+        if(isGuest(authentication))
+            return new LinkedHashMap<>();
+
+        Player player = player_rep.findByEmail(authentication.getName());
+        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
+        if(player != gamePlayer.getPlayer())
+            return new LinkedHashMap<>();
+
+        return GamePlayerDTO.gameFullView(gamePlayer);
     }
 
     // Leaderboard for Task 5
@@ -115,25 +119,5 @@ public class AppController {
         return game_rep.findAll().stream()
                 .map(g -> GameDTO.makeDTO(g))
                 .collect(toList());
-    }
-
-
-
-    @RequestMapping(path = "/players", method = RequestMethod.POST)
-    public ResponseEntity<Object> register(
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam String password) {
-
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-        }
-
-        if (player_rep.findByEmail(email) !=  null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
-        }
-
-        player_rep.save(new Player(name, email, passwordEncoder.encode(password)));
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
