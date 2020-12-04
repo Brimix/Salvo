@@ -47,7 +47,7 @@ public class GamesController {
     @RequestMapping(path = "/game/{game_id}/players", method = RequestMethod.POST)
     public ResponseEntity<Object> Join(@PathVariable Long game_id,  Authentication authentication) {
         if(isGuest(authentication))
-            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
 
         Player player = player_rep.findByEmail(authentication.getName());
 
