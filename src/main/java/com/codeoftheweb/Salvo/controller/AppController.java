@@ -91,18 +91,6 @@ public class AppController {
                 .collect(toList());
     }
 
-    @RequestMapping("/games")
-    public Map<String, Object> getGamesPlayer(Authentication authentication) {
-        Map<String, Object> data = new LinkedHashMap<>();
-        data.put("player",
-                !isGuest(authentication) ?
-                PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName())):
-                "Guest");
-        data.put("games", game_rep.findAll().stream()
-                        .map(g -> GameDTO.makeDTO(g))
-                        .collect(toList()));
-        return data;
-    }
     public List<Map<String, Object>> getAllGames(){
         return game_rep.findAll().stream()
                 .map(g -> GameDTO.makeDTO(g))

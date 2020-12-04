@@ -1,6 +1,8 @@
 package com.codeoftheweb.Salvo.controller;
 
+import com.codeoftheweb.Salvo.dto.GameDTO;
 import com.codeoftheweb.Salvo.dto.GamePlayerDTO;
+import com.codeoftheweb.Salvo.dto.PlayerDTO;
 import com.codeoftheweb.Salvo.model.Game;
 import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.model.Player;
@@ -22,6 +24,7 @@ import java.util.Map;
 
 import static com.codeoftheweb.Salvo.util.Util.isGuest;
 import static com.codeoftheweb.Salvo.util.Util.makeMap;
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api")
@@ -34,17 +37,17 @@ public class GamesController {
     @Autowired
     private GamePlayerRepository gp_rep;
 
-    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
-    public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
-        if(isGuest(authentication))
-            return new LinkedHashMap<>();
-
-        Player player = player_rep.findByEmail(authentication.getName());
-        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
-        if(player != gamePlayer.getPlayer())
-            return new LinkedHashMap<>();
-
-        return GamePlayerDTO.gameFullView(gamePlayer);
+    @RequestMapping(path = "/games", method = RequestMethod.GET)
+    public Map<String, Object> getGamesPlayer(Authentication authentication) {
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("player",
+                !isGuest(authentication) ?
+                        PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName())):
+                        "Guest");
+        data.put("games", game_rep.findAll().stream()
+                .map(g -> GameDTO.makeDTO(g))
+                .collect(toList()));
+        return data;
     }
 
     @RequestMapping(path = "/games", method = RequestMethod.POST)
@@ -59,6 +62,20 @@ public class GamesController {
         game_rep.save(game);
         gp_rep.save(gamePlayer);
         return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
+        if(isGuest(authentication))
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.FORBIDDEN);
+
+        Player player = player_rep.findByEmail(authentication.getName());
+        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
+        if(player != gamePlayer.getPlayer())
+            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.FORBIDDEN);;
+
+
+        return new ResponseEntity<>(GamePlayerDTO.gameFullView(gamePlayer), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(path = "/game/{game_id}/players", method = RequestMethod.POST)
