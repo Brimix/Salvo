@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Battle Boards</title>
+    <link rel="stylesheet" type="text/css" href="./css/game.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+    body {
+      background-image: url('img/Sea.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <center> <h2> Players </h2> </center>
+    <center> <span id="playerInfo"></span> </center>
+    <center> <span id="playerText"></span> </center>
+    <div class="row">
+        <div class="col">
+            <section>
+                <center><h2> Your ships </h2> </center>
+                <center> <table border="1" style="width:440px;height:440px;background-color: rgba(255, 255, 255, 0.5)">
+                    <thead>
+                    <th width="40px"></th>
+                    <th id="th_0" width="40px">1</th><th id="th_1" width="40px">2</th><th id="th_2" width="40px">3</th><th id="th_3" width="40px">4</th><th id="th_4" width="40px">5</th>
+                    <th id="th_5" width="40px">6</th><th id="th_6" width="40px">7</th><th id="th_7" width="40px">8</th><th id="th_8" width="40px">9</th><th id="th_9" width="40px">10</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td id="A1"></td><td id="A2"></td><td  id="A3"></td><td id="A4"></td><td  id="A5"></td>
+                        <td id="A6"></td><td id="A7"></td><td  id="A8"></td><td id="A9"></td><td  id="A10"></td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td id="B1"></td><td id="B2"></td><td id="B3"></td><td id="B4"></td><td id="B5"></td>
+                        <td id="B6"></td><td id="B7"></td><td id="B8"></td><td id="B9"></td><td id="B10"></td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td id="C1"></td><td id="C2"></td><td id="C3"></td><td id="C4"></td><td id="C5"></td>
+                        <td id="C6"></td><td id="C7"></td><td id="C8"></td><td id="C9"></td><td id="C10"></td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td id="D1"></td><td id="D2"></td><td id="D3"></td><td id="D4"></td><td id="D5"></td>
+                        <td id="D6"></td><td id="D7"></td><td id="D8"></td><td id="D9"></td><td id="D10"></td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td id="E1"></td><td id="E2"></td><td id="E3"></td><td id="E4"></td><td id="E5"></td>
+                        <td id="E6"></td><td id="E7"></td><td id="E8"></td><td id="E9"></td><td id="E10"></td>
+                    </tr>
+                    <tr>
+                        <td>F</td>
+                        <td id="F1"></td><td id="F2"></td><td id="F3"></td><td id="F4"></td><td id="F5"></td>
+                        <td id="F6"></td><td id="F7"></td><td id="F8"></td><td id="F9"></td><td id="F10"></td>
+                    </tr>
+                    <tr>
+                        <td>G</td>
+                        <td id="G1"></td><td id="G2"></td><td id="G3"></td><td id="G4"></td><td id="G5"></td>
+                        <td id="G6"></td><td id="G7"></td><td id="G8"></td><td id="G9"></td><td id="G10"></td>
+                    </tr>
+                    <tr>
+                        <td>H</td>
+                        <td id="H1"></td><td id="H2"></td><td id="H3"></td><td id="H4"></td><td id="H5"></td>
+                        <td id="H6"></td><td id="H7"></td><td id="H8"></td><td id="H9"></td><td id="H10"></td>
+                    </tr>
+                    <tr>
+                        <td>I</td>
+                        <td id="I1"></td><td id="I2"></td><td id="I3"></td><td id="I4"></td><td id="I5"></td>
+                        <td id="I6"></td><td id="I7"></td><td id="I8"></td><td id="I9"></td><td id="I10"></td>
+                    </tr>
+                    <tr>
+                        <td>J</td>
+                        <td id="J1"></td><td id="J2"></td><td id="J3"></td><td id="J4"></td><td id="J5"></td>
+                        <td id="J6"></td><td id="J7"></td><td id="J8"></td><td id="J9"></td><td id="J10"></td>
+                    </tr>
+                    </tbody>
+                </table> </center>
+            </section>
+        </div>
+        <div class="col">
+            <section>
+                <center> <h2> Shots on Rival </h2> </center>
+                <center> <table border="1" style="width:440px;height:440px;background-color: rgba(255, 255, 255, 0.5)">
+                    <thead>
+                    <th width="40px"></th>
+                    <th id="th_10" width="40px">1</th><th id="th_11" width="40px">2</th><th id="th_12" width="40px">3</th><th id="th_13" width="40px">4</th><th id="th_14" width="40px">5</th>
+                    <th id="th_15" width="40px">6</th><th id="th_16" width="40px">7</th><th id="th_17" width="40px">8</th><th id="th_18" width="40px">9</th><th id="th_19" width="40px">10</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td id="RA1"></td><td id="RA2"></td><td  id="RA3"></td><td id="RA4"></td><td  id="RA5"></td>
+                        <td id="RA6"></td><td id="RA7"></td><td  id="RA8"></td><td id="RA9"></td><td  id="RA10"></td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td id="RB1"></td><td id="RB2"></td><td id="RB3"></td><td id="RB4"></td><td id="RB5"></td>
+                        <td id="RB6"></td><td id="RB7"></td><td id="RB8"></td><td id="RB9"></td><td id="RB10"></td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td id="RC1"></td><td id="RC2"></td><td id="RC3"></td><td id="RC4"></td><td id="RC5"></td>
+                        <td id="RC6"></td><td id="RC7"></td><td id="RC8"></td><td id="RC9"></td><td id="RC10"></td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td id="RD1"></td><td id="RD2"></td><td id="RD3"></td><td id="RD4"></td><td id="RD5"></td>
+                        <td id="RD6"></td><td id="RD7"></td><td id="RD8"></td><td id="RD9"></td><td id="RD10"></td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td id="RE1"></td><td id="RE2"></td><td id="RE3"></td><td id="RE4"></td><td id="RE5"></td>
+                        <td id="RE6"></td><td id="RE7"></td><td id="RE8"></td><td id="RE9"></td><td id="RE10"></td>
+                    </tr>
+                    <tr>
+                        <td>F</td>
+                        <td id="RF1"></td><td id="RF2"></td><td id="RF3"></td><td id="RF4"></td><td id="RF5"></td>
+                        <td id="RF6"></td><td id="RF7"></td><td id="RF8"></td><td id="RF9"></td><td id="RF10"></td>
+                    </tr>
+                    <tr>
+                        <td>G</td>
+                        <td id="RG1"></td><td id="RG2"></td><td id="RG3"></td><td id="RG4"></td><td id="RG5"></td>
+                        <td id="RG6"></td><td id="RG7"></td><td id="RG8"></td><td id="RG9"></td><td id="RG10"></td>
+                    </tr>
+                    <tr>
+                        <td>H</td>
+                        <td id="RH1"></td><td id="RH2"></td><td id="RH3"></td><td id="RH4"></td><td id="RH5"></td>
+                        <td id="RH6"></td><td id="RH7"></td><td id="RH8"></td><td id="RH9"></td><td id="RH10"></td>
+                    </tr>
+                    <tr>
+                        <td>I</td>
+                        <td id="RI1"></td><td id="RI2"></td><td id="RI3"></td><td id="RI4"></td><td id="RI5"></td>
+                        <td id="RI6"></td><td id="RI7"></td><td id="RI8"></td><td id="RI9"></td><td id="RI10"></td>
+                    </tr>
+                    <tr>
+                        <td>J</td>
+                        <td id="RJ1"></td><td id="RJ2"></td><td id="RJ3"></td><td id="RJ4"></td><td id="RJ5"></td>
+                        <td id="RJ6"></td><td id="RJ7"></td><td id="RJ8"></td><td id="RJ9"></td><td id="RJ10"></td>
+                    </tr>
+                    </tbody>
+                </table> </center>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/game_3.js"></script>
+<script src="./js/popper.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<!--<script src="./js/jquery-3.3.1.min.js"></script>-->
+</body>
+</html>
