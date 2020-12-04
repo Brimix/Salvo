@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import static com.codeoftheweb.Salvo.util.Util.isGuest;
+import static com.codeoftheweb.Salvo.util.Util.makeMap;
 
 @RestController
 @RequestMapping("/api")
@@ -67,15 +67,5 @@ public class GamesController {
 
         gp_rep.save(gamePlayer);
         return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
-    }
-
-
-    private boolean isGuest(Authentication authentication) {
-        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
-    }
-    private Map<String, Object> makeMap(String key, Object value) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put(key, value);
-        return map;
     }
 }

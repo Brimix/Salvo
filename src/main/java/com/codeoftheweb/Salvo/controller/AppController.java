@@ -17,11 +17,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.codeoftheweb.Salvo.util.Util.isGuest;
 import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api")
-public class SalvoController {
+public class AppController {
     // Declaration of repositories
     @Autowired
     private PlayerRepository player_rep;
@@ -116,9 +117,7 @@ public class SalvoController {
                 .collect(toList());
     }
 
-    private boolean isGuest(Authentication authentication) {
-        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
-    }
+
 
     @RequestMapping(path = "/players", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
