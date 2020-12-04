@@ -79,18 +79,6 @@ public class AppController {
 
     // Game View for Task 4
 //    @RequestMapping("/game_fullview/{gameplayer_id}")
-    @RequestMapping("/game_view/{gameplayer_id}")
-    public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
-        if(isGuest(authentication))
-            return new LinkedHashMap<>();
-
-        Player player = player_rep.findByEmail(authentication.getName());
-        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
-        if(player != gamePlayer.getPlayer())
-            return new LinkedHashMap<>();
-
-        return GamePlayerDTO.gameFullView(gamePlayer);
-    }
 
     // Leaderboard for Task 5
     @RequestMapping("/leaderBoard")

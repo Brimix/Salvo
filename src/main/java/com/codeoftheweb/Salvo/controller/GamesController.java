@@ -1,5 +1,6 @@
 package com.codeoftheweb.Salvo.controller;
 
+import com.codeoftheweb.Salvo.dto.GamePlayerDTO;
 import com.codeoftheweb.Salvo.model.Game;
 import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.model.Player;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static com.codeoftheweb.Salvo.util.Util.isGuest;
 import static com.codeoftheweb.Salvo.util.Util.makeMap;
 
@@ -29,6 +33,19 @@ public class GamesController {
     private GameRepository game_rep;
     @Autowired
     private GamePlayerRepository gp_rep;
+
+    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
+    public Map<String, Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
+        if(isGuest(authentication))
+            return new LinkedHashMap<>();
+
+        Player player = player_rep.findByEmail(authentication.getName());
+        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
+        if(player != gamePlayer.getPlayer())
+            return new LinkedHashMap<>();
+
+        return GamePlayerDTO.gameFullView(gamePlayer);
+    }
 
     @RequestMapping(path = "/games", method = RequestMethod.POST)
     public ResponseEntity<Object> Create(Authentication authentication) {
