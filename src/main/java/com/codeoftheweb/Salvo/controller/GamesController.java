@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +44,23 @@ public class GamesController {
         return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
     }
 
+    @RequestMapping(path = "/game/{game_id}/players", method = RequestMethod.POST)
+    public ResponseEntity<Object> Join(@PathVariable Long game_id,  Authentication authentication) {
+        if(isGuest(authentication))
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.FORBIDDEN);
+
+        Player player = player_rep.findByEmail(authentication.getName());
+        Game game = game_rep.findById(game_id).orElse(null);
+        if(game == null)
+            return new ResponseEntity<>(makeMap("error", "Game not found."), HttpStatus.FORBIDDEN);
+
+        GamePlayer gamePlayer = new GamePlayer(player, game);
+        if(gamePlayer == null)
+            return new ResponseEntity<>(makeMap("error", "Couldn't create GamePlayer."), HttpStatus.FORBIDDEN);
+
+        gp_rep.save(gamePlayer);
+        return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
+    }
 
 
     private boolean isGuest(Authentication authentication) {
