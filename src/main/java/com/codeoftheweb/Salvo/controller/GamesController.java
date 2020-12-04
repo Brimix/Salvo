@@ -50,9 +50,16 @@ public class GamesController {
             return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.FORBIDDEN);
 
         Player player = player_rep.findByEmail(authentication.getName());
+
         Game game = game_rep.findById(game_id).orElse(null);
         if(game == null)
             return new ResponseEntity<>(makeMap("error", "Game not found."), HttpStatus.FORBIDDEN);
+
+        if (game.getPlayers().contains(player))
+            return new ResponseEntity<>(makeMap("error", "You're already in the game!"), HttpStatus.FORBIDDEN);
+
+        if(game.getPlayers().size() >= 2)
+            return new ResponseEntity<>(makeMap("error", "Game is full!"), HttpStatus.FORBIDDEN);
 
         GamePlayer gamePlayer = new GamePlayer(player, game);
         if(gamePlayer == null)
