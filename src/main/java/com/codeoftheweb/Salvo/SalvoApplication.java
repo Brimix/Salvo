@@ -169,7 +169,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(inputName-> {
-			Player player = playerRepository.findByEmail(inputName);
+			Player player = playerRepository.findByEmail(inputName).orElse(null);
 			if (player != null) {
 				System.out.println("Player found!\n");
 				return new User(player.getEmail(), player.getPassword(),
