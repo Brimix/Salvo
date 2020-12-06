@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.codeoftheweb.Salvo.util.Util.isGuest;
+import static com.codeoftheweb.Salvo.util.Util.makeMap;
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -37,52 +38,47 @@ public class AppController {
     @Autowired
     private ScoreRepository score_rep;
 
-    // Api to get JSON for each of the classes
-    @RequestMapping("/players")
+    // Methods to get JSON for each of the classes
+    @RequestMapping("/playersInfo")
     public List<Map<String, Object>> getAllPlayers() {
         return player_rep.findAll().stream()
                 .map(p -> PlayerDTO.makeDTO(p))
                 .collect(toList());
     }
-
-    @RequestMapping("/gamePlayers")
+    @RequestMapping("/gamesInfo")
+    public List<Map<String, Object>> getAllGames(){
+        return game_rep.findAll().stream()
+                .map(g -> GameDTO.makeDTO(g))
+                .collect(toList());
+    }
+    @RequestMapping("/gamePlayersInfo")
     public List<Map<String, Object>> getAllGamePlayers() {
         return gp_rep.findAll().stream()
                 .map(gp -> GamePlayerDTO.makeDTO(gp))
                 .collect(toList());
     }
-    @RequestMapping("/ships")
+    @RequestMapping("/shipsInfo")
     public List<Map<String, Object>> getAllShips() {
         return ship_rep.findAll().stream()
                 .map(s -> ShipDTO.makeDTO(s))
                 .collect(toList());
     }
-    @RequestMapping("/salvoes")
+    @RequestMapping("/salvoesInfo")
     public List<Map<String, Object>> getAllSalvoes() {
         return salvo_rep.findAll().stream()
                 .map(s -> SalvoDTO.makeDTO(s))
                 .collect(toList());
     }
-    @RequestMapping("/scores")
+    @RequestMapping("/scoresInfo")
     public List<Map<String, Object>> getAllScores() {
         return score_rep.findAll().stream()
                 .map(s -> ScoreDTO.makeDTO(s))
                 .collect(toList());
     }
 
-    // Game View for Task 3
-//    @RequestMapping("/game_view/{gamePlayer_id}")
-//    public Map<String, Object> getGameView(@PathVariable Long gamePlayer_id) {
-//        GamePlayer gp = gp_rep.findById(gamePlayer_id).get();
-//        return GamePlayerDTO.gameView(gp);
-//    }
-
-    // Game View for Task 4
-//    @RequestMapping("/game_fullview/{gameplayer_id}")
-
-    // Leaderboard for Task 5
+    //~ Method to retrieve scores data to create the Leaderboard
     @RequestMapping("/leaderBoard")
-    public List<Map<String, Object>> getLeaderboard() {
+    public List<Map<String, Object>> getLeaderBoard() {
         return player_rep.findAll().stream().sorted(Comparator
                 .comparingDouble(Player::getTotal)
                 .reversed()
@@ -91,9 +87,40 @@ public class AppController {
                 .collect(toList());
     }
 
-    public List<Map<String, Object>> getAllGames(){
-        return game_rep.findAll().stream()
-                .map(g -> GameDTO.makeDTO(g))
-                .collect(toList());
+    //~ Method to retrieve the game data which is shown to a player
+    @RequestMapping(path = "/game_view/{gamePlayer_id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getGameView(@PathVariable Long gamePlayer_id, Authentication authentication) {
+        if(isGuest(authentication))
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
+        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
+        if(player == null)
+            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        GamePlayer gamePlayer = gp_rep.findById(gamePlayer_id).orElse(null);
+        if(gamePlayer == null)
+            return new ResponseEntity<>(makeMap("error", "Database error. GamePlayer not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+        if(player != gamePlayer.getPlayer())
+            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
+
+        return new ResponseEntity<>(GamePlayerDTO.gameFullView(gamePlayer), HttpStatus.ACCEPTED);
     }
+
+    //~ Auxiliary Game View for testing new Front End
+//    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
+//    public ResponseEntity<Object> getGameUltimateView(@PathVariable Long gameplayer_id, Authentication authentication) {
+//        if(isGuest(authentication))
+//            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
+//        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
+//        if(player == null)
+//            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).orElse(null);
+//        if(gamePlayer == null)
+//            return new ResponseEntity<>(makeMap("error", "Game not found."), HttpStatus.FORBIDDEN);
+//        if(player != gamePlayer.getPlayer())
+//            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
+//
+//
+//        return new ResponseEntity<>(GamePlayerDTO.gameUltimateView(gamePlayer), HttpStatus.ACCEPTED);
+//    }
 }

@@ -12,7 +12,6 @@ import com.codeoftheweb.Salvo.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class GamesController {
-    // Declaration of repositories
+    //~ Declaration of repositories
     @Autowired
     private PlayerRepository player_rep;
     @Autowired
@@ -37,67 +36,60 @@ public class GamesController {
     @Autowired
     private GamePlayerRepository gp_rep;
 
+    //~ Method to retrieve games data for page view.
     @RequestMapping(path = "/games", method = RequestMethod.GET)
-    public Map<String, Object> getGamesPlayer(Authentication authentication) {
+    public Map<String, Object> getGamesData(Authentication authentication) {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("player",
                 !isGuest(authentication) ?
-                        PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName())):
-                        "Guest");
+                PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName()).get()) :
+                "Guest");
         data.put("games", game_rep.findAll().stream()
                 .map(g -> GameDTO.makeDTO(g))
                 .collect(toList()));
         return data;
     }
 
+    //~ Method to create a new game
     @RequestMapping(path = "/games", method = RequestMethod.POST)
     public ResponseEntity<Object> Create(Authentication authentication) {
         if(isGuest(authentication))
-            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
 
-        Player player = player_rep.findByEmail(authentication.getName());
+        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
+        if(player == null)
+            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+
         Game game = new Game();
         GamePlayer gamePlayer = new GamePlayer(player, game);
-
         game_rep.save(game);
         gp_rep.save(gamePlayer);
         return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getGameFullView(@PathVariable Long gameplayer_id, Authentication authentication) {
-        if(isGuest(authentication))
-            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
-
-        Player player = player_rep.findByEmail(authentication.getName());
-        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).get();
-        if(player != gamePlayer.getPlayer())
-            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
-
-
-        return new ResponseEntity<>(GamePlayerDTO.gameFullView(gamePlayer), HttpStatus.ACCEPTED);
-    }
-
+    //~ Method to join an existing game
     @RequestMapping(path = "/game/{game_id}/players", method = RequestMethod.POST)
     public ResponseEntity<Object> Join(@PathVariable Long game_id,  Authentication authentication) {
         if(isGuest(authentication))
             return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
 
-        Player player = player_rep.findByEmail(authentication.getName());
+        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
+        if(player == null)
+            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
 
         Game game = game_rep.findById(game_id).orElse(null);
         if(game == null)
             return new ResponseEntity<>(makeMap("error", "Game not found."), HttpStatus.FORBIDDEN);
 
         if (game.getPlayers().contains(player))
-            return new ResponseEntity<>(makeMap("error", "You're already in the game!"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "You are already in the game!"), HttpStatus.FORBIDDEN);
 
         if(game.getPlayers().size() >= 2)
             return new ResponseEntity<>(makeMap("error", "Game is full!"), HttpStatus.FORBIDDEN);
 
         GamePlayer gamePlayer = new GamePlayer(player, game);
         if(gamePlayer == null)
-            return new ResponseEntity<>(makeMap("error", "Couldn't create GamePlayer."), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "Database error. Couldn't create GamePlayer."), HttpStatus.INTERNAL_SERVER_ERROR);
 
         gp_rep.save(gamePlayer);
         return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
