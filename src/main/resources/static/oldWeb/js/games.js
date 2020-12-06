@@ -25,7 +25,6 @@ $('#login-form').on('submit', function (event) {
                 // $("#username").val("");
                 $("#password").val("");
                 updateJson();
-                $("#createGameForm").show();
 
             })
             .fail(function() {
@@ -42,7 +41,8 @@ $('#login-form').on('submit', function (event) {
 
     } else if (submitButton == "signup") {
         $.post("/api/players",
-            { email: $("#username").val(),
+            {   name: cutBody($("#username").val()),
+                email: $("#username").val(),
                 password: $("#password").val() })
             .done(function(data) {
                 console.log("signup ok");
@@ -84,10 +84,15 @@ $('#login-form').on('submit', function (event) {
 
             });
 
+
     } else {
         //no button pressed
     }
 });
+
+function cutBody(email){
+    return email.slice(0, email.indexOf("@"));
+}
 
 $('#logout-form').on('submit', function (event) {
         event.preventDefault();
@@ -105,14 +110,13 @@ $('#logout-form').on('submit', function (event) {
             });
     });
 
-
-$('#createGame').click(function (event) {
+$('#createGame').on('submit', function (event) {
     event.preventDefault();
     $.post("/api/games")
         .done(function (data) {
-            console.log("Miren mi juego ",data);
+            console.log(data);
             console.log("game created");
-            gameViewUrl = "/web/game.html?gp=" + data.gpid;
+            gameViewUrl = "/web/game_3.html?gp=" + data.gpid;
             $('#gameCreatedSuccess').show("slow").delay(2000).hide("slow");
             setTimeout(
                 function()
@@ -126,7 +130,9 @@ $('#createGame').click(function (event) {
             $('#errorSignup').show( "slow" ).delay(4000).hide( "slow" );
 
         })
+        .always(function () {
 
+        });
 });
 
 
@@ -161,10 +167,8 @@ function updateView() {
             $('#currentPlayer').text(data.player);
             $('#logout-form').hide("slow");
             $('#login-form').show("slow");
-            $("#createGameForm").hide();
 
         } else {
-
             $('#currentPlayer').text(data.player.email);
             $('#login-form').hide("slow");
             $('#logout-form').show("slow");
@@ -210,7 +214,7 @@ function showGamesTable(gamesData) {
             }
 
             if (isLoggedPlayer === true) {
-                var gameUrl = "/web/game.html?gp=" + gpid;
+                var gameUrl = "/web/game_3.html?gp=" + gpid;
                 $('<td class="textCenter"><a href=' + '"' + gameUrl + '"' + 'class="btn btn-warning" role="button">ENTER GAME</a></td>').appendTo(row);
             } else if (joinButtonHtml !== null){
                 $(joinButtonHtml).appendTo(row);
@@ -229,7 +233,7 @@ function showGamesTable(gamesData) {
             .done(function (data) {
                 console.log(data);
                 console.log("game joined");
-                gameViewUrl = "/web/game.html?gp=" + data.gpid;
+                gameViewUrl = "/web/game_3.html?gp=" + data.gpid;
                 $('#gameJoinedSuccess').show("slow").delay(2000).hide("slow");
                 setTimeout(
                    function()
