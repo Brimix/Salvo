@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SalvoDTO {
+    //~ Required from GameView DTO
     public static Map<String, Object> makeDTO(Salvo salvo){
         Map<String, Object> dto = new LinkedHashMap<>();
         // dto.put("id", salvo.getId());

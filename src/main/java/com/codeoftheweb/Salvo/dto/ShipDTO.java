@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ShipDTO {
+    //~ Required from GameView DTO
     public static Map<String, Object> makeDTO(Ship ship){
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", ship.getId());

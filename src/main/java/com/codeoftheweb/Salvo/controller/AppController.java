@@ -7,13 +7,10 @@ import com.codeoftheweb.Salvo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +99,7 @@ public class AppController {
         if(player != gamePlayer.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
 
-        return new ResponseEntity<>(GamePlayerDTO.gameFullView(gamePlayer), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(GamePlayerDTO.gameView(gamePlayer), HttpStatus.ACCEPTED);
     }
 
     //~ Auxiliary Game View for testing new Front End
