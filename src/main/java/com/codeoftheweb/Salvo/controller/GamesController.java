@@ -52,7 +52,7 @@ public class GamesController {
 
     //~ Method to create a new game
     @RequestMapping(path = "/games", method = RequestMethod.POST)
-    public ResponseEntity<Object> Create(Authentication authentication) {
+    public ResponseEntity<Object> create(Authentication authentication) {
         if(isGuest(authentication))
             return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
 
@@ -69,7 +69,7 @@ public class GamesController {
 
     //~ Method to join an existing game
     @RequestMapping(path = "/game/{game_id}/players", method = RequestMethod.POST)
-    public ResponseEntity<Object> Join(@PathVariable Long game_id,  Authentication authentication) {
+    public ResponseEntity<Object> join(@PathVariable Long game_id,  Authentication authentication) {
         if(isGuest(authentication))
             return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
 
