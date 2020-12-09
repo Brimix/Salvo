@@ -36,28 +36,29 @@ public class GamePlayerDTO {
 
 
     //~ Auxiliary Game View DTO for testing new Front End
-//    public static Map<String, Object> gameUltimateView(GamePlayer gamePlayer){
-//        Game game = gamePlayer.getGame();
-//        Map<String, Object> dto = GameDTO.makeDTO(game);
-//        Map<String, Object> Hitting = new LinkedHashMap<>();
-//        dto.put("id", gamePlayer.getId());
-//        dto.put("created", gamePlayer.getJoined());
-//        dto.put("gameState", "Not yet implemented.");
-//        dto.put("hits", Hitting);
-//        dto.put("gamePlayers", game.getGamePlayers().stream()
-//                                .map(gp -> GamePlayerDTO.makeDTO(gp))
-//                                .collect(toList()));
-//
-//        dto.put("ships", gamePlayer.getShips().stream()
-//                .map(s -> ShipDTO.makeDTO(s))
-//                .collect(toList()));
-//
-//        Set<Salvo> allSalvoes = new HashSet<>();
-//        for(GamePlayer gp : game.getGamePlayers()) allSalvoes.addAll(gp.getSalvoes());
-//        dto.put("salvoes", allSalvoes.stream()
-//                .map(s -> SalvoDTO.makeDTO(s))
-//                .collect(toList()));
-//
+    public static Map<String, Object> gameUltimateView(GamePlayer gamePlayer){
+        Game game = gamePlayer.getGame();
+        Map<String, Object> dto = GameDTO.makeDTO(game);
+        Map<String, Object> Hitting = new LinkedHashMap<>();
+        dto.put("id", gamePlayer.getId());
+        dto.put("created", gamePlayer.getJoined());
+        dto.put("gameState", "Not yet implemented.");
+//        dto.put("gameState", "PLACESHIPS");
+        dto.put("hits", Hitting);
+        dto.put("gamePlayers", game.getGamePlayers().stream()
+                                .map(gp -> GamePlayerDTO.makeDTO(gp))
+                                .collect(toList()));
+
+        dto.put("ships", gamePlayer.getShips().stream()
+                .map(s -> ShipDTO.makeDTO(s))
+                .collect(toList()));
+
+        Set<Salvo> allSalvoes = new HashSet<>();
+        for(GamePlayer gp : game.getGamePlayers()) allSalvoes.addAll(gp.getSalvoes());
+        dto.put("salvoes", allSalvoes.stream()
+                .map(s -> SalvoDTO.makeDTO(s))
+                .collect(toList()));
+
 //        Hitting.put("self", allSalvoes.stream()
 //                            .filter(salvo -> salvo.getGamePlayer() == gamePlayer)
 //                            .map(salvo -> SalvoDTO.porongaDTO(salvo))
@@ -66,6 +67,8 @@ public class GamePlayerDTO {
 //                            .filter(salvo -> salvo.getGamePlayer() != gamePlayer)
 //                            .map(salvo -> SalvoDTO.porongaDTO(salvo))
 //                            .collect(toList()));
-//        return dto;
-//    }
+        Hitting.put("self", new ArrayList<>());
+        Hitting.put("opponent", new ArrayList<>());
+        return dto;
+    }
 }

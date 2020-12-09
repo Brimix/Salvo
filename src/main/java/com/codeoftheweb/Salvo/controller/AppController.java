@@ -104,20 +104,20 @@ public class AppController {
 
     //~ Auxiliary Game View for testing new Front End
 //    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
-//    public ResponseEntity<Object> getGameUltimateView(@PathVariable Long gameplayer_id, Authentication authentication) {
-//        if(isGuest(authentication))
-//            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
-//        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
-//        if(player == null)
-//            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).orElse(null);
-//        if(gamePlayer == null)
-//            return new ResponseEntity<>(makeMap("error", "Game not found."), HttpStatus.FORBIDDEN);
-//        if(player != gamePlayer.getPlayer())
-//            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
-//
-//
-//        return new ResponseEntity<>(GamePlayerDTO.gameUltimateView(gamePlayer), HttpStatus.ACCEPTED);
-//    }
+    public ResponseEntity<Object> getGameUltimateView(@PathVariable Long gameplayer_id, Authentication authentication) {
+        if(isGuest(authentication))
+            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
+        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
+        if(player == null)
+            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        GamePlayer gamePlayer = gp_rep.findById(gameplayer_id).orElse(null);
+        if(gamePlayer == null)
+            return new ResponseEntity<>(makeMap("error", "Game not found."), HttpStatus.FORBIDDEN);
+        if(player != gamePlayer.getPlayer())
+            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
+
+
+        return new ResponseEntity<>(GamePlayerDTO.gameUltimateView(gamePlayer), HttpStatus.ACCEPTED);
+    }
 }
