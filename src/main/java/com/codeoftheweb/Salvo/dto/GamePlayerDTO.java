@@ -42,8 +42,8 @@ public class GamePlayerDTO {
         Map<String, Object> Hitting = new LinkedHashMap<>();
         dto.put("id", gamePlayer.getId());
         dto.put("created", gamePlayer.getJoined());
-        dto.put("gameState", "Not yet implemented.");
-//        dto.put("gameState", "PLACESHIPS");
+//        dto.put("gameState", "Not yet implemented.");
+        dto.put("gameState", "PLACESHIPS");
         dto.put("hits", Hitting);
         dto.put("gamePlayers", game.getGamePlayers().stream()
                                 .map(gp -> GamePlayerDTO.makeDTO(gp))
