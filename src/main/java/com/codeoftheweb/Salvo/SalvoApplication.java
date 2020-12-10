@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
+// Now with MySQL
+
 @SpringBootApplication
 public class SalvoApplication {
 	public static void main(String[] args){
