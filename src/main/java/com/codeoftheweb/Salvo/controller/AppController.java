@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class AppController {
-    // Declaration of repositories
+    //~ Declaration of repositories
     @Autowired
     private PlayerRepository player_rep;
     @Autowired
@@ -85,7 +85,7 @@ public class AppController {
     }
 
     //~ Method to retrieve the game data which is shown to a player
-    @RequestMapping(path = "/game_view/{gamePlayer_id}", method = RequestMethod.GET)
+//    @RequestMapping(path = "/game_view/{gamePlayer_id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getGameView(@PathVariable Long gamePlayer_id, Authentication authentication) {
         if(isGuest(authentication))
             return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
@@ -103,7 +103,7 @@ public class AppController {
     }
 
     //~ Auxiliary Game View for testing new Front End
-//    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getGameUltimateView(@PathVariable Long gameplayer_id, Authentication authentication) {
         if(isGuest(authentication))
             return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
