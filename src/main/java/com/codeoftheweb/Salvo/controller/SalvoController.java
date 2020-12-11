@@ -37,7 +37,7 @@ public class SalvoController {
         // Get gamePlayers and check permissions
         GamePlayer gamePlayerMe = gp_rep.findById(gamePlayer_id).orElse(null);
         if(gamePlayerMe == null)
-            return new ResponseEntity<>(makeMap("error", "Database error. GamePlayer not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(makeMap("error", "GamePlayer not found."), HttpStatus.FORBIDDEN);
         if(player != gamePlayerMe.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);
         if(!getGameState(gamePlayerMe).equals("PLAY"))

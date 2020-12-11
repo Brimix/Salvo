@@ -95,7 +95,7 @@ public class AppController {
 
         GamePlayer gamePlayer = gp_rep.findById(gamePlayer_id).orElse(null);
         if(gamePlayer == null)
-            return new ResponseEntity<>(makeMap("error", "Database error. GamePlayer not found."), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(makeMap("error", "GamePlayer not found."), HttpStatus.FORBIDDEN);
         if(player != gamePlayer.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
 
