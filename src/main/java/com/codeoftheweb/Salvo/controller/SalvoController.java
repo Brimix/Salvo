@@ -56,15 +56,15 @@ public class SalvoController {
                 return new ResponseEntity<>(makeMap("error", "Overlapping salvoes!"), HttpStatus.FORBIDDEN);
 
         // Validate turn
-        int myTurn = gamePlayerMe.getSalvoes().size() + 1;
-        int opponentTurn = gamePlayerOpponent.getSalvoes().size() + 1;
+        int myTurn = gamePlayerMe.getSalvoes().size();
+        int opponentTurn = gamePlayerOpponent.getSalvoes().size();
         if(myTurn > opponentTurn)
             return new ResponseEntity<>(makeMap("error", "Wait for your rival to finish this turn"), HttpStatus.FORBIDDEN);
         if(myTurn+1 < opponentTurn)
             return new ResponseEntity<>(makeMap("error", "Server problem. You are many turns behind your rival."), HttpStatus.INTERNAL_SERVER_ERROR);
 
         // All is fine
-        salvo.setTurn(myTurn);
+        salvo.setTurn(myTurn+1);
         gamePlayerMe.addSalvo(salvo);
         salvo_rep.save(salvo);
         return new ResponseEntity<>(makeMap("OK", "Your salvoes were fired!"), HttpStatus.CREATED);
