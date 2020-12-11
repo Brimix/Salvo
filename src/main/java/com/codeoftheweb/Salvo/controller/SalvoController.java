@@ -41,10 +41,7 @@ public class SalvoController {
         if(player != gamePlayerMe.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);
 
-        GamePlayer gamePlayerOpponent =
-                gamePlayerMe.getGame().getGamePlayers().stream()
-                .filter(gp -> (gp != gamePlayerMe))
-                .findAny().orElse(null);
+        GamePlayer gamePlayerOpponent = getOpponent(gamePlayerMe);
         if(gamePlayerOpponent == null)
             return new ResponseEntity<>(makeMap("error", "You don\'t have a rival yet!"), HttpStatus.FORBIDDEN);
 

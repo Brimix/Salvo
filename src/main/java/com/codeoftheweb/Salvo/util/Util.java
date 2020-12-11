@@ -26,6 +26,12 @@ public class Util {
         return "PLAY";
     }
 
+    public static GamePlayer getOpponent(GamePlayer gamePlayer){
+        return gamePlayer.getGame().getGamePlayers().stream()
+                .filter(gp -> (gp != gamePlayer))
+                .findAny().orElse(null);
+    }
+
     public static Map<String, Integer> shipTypes = Stream.of(
         new Object[][]{
             {"carrier", 5},
