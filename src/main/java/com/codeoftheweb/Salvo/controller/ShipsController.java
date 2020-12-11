@@ -110,14 +110,6 @@ public class ShipsController {
         return "OK";
     }
 
-    private boolean outOfBoundsLocation(String location){
-        char row = location.charAt(0);
-        int col = Integer.parseInt(location.substring(1));
-        if(row < 'A' || 'J' < row) return true;
-        if(col < 1 || 10 < col) return true;
-        return false;
-    }
-
     private boolean overlapShips(Ship ship1, Ship ship2){
         for(String location : ship1.getLocations())
             if(ship2.getLocations().contains(location))

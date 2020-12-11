@@ -28,4 +28,12 @@ public class Util {
             {"destroyer", 3},
             {"patrolboat", 2}
         }).collect(toMap(data -> (String)data[0], data -> (Integer)data[1]));
+
+    public static boolean outOfBoundsLocation(String location){
+        char row = location.charAt(0);
+        int col = Integer.parseInt(location.substring(1));
+        if(row < 'A' || 'J' < row) return true;
+        if(col < 1 || 10 < col) return true;
+        return false;
+    }
 }
