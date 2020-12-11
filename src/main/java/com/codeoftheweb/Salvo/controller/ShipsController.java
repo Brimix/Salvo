@@ -63,11 +63,9 @@ public class ShipsController {
         Set<Ship> newShips = gamePlayer.getShips(); newShips.addAll(ships);
         if(newShips.size() > 5)
             return new ResponseEntity<>(makeMap("error", "Too many ships!"), HttpStatus.FORBIDDEN);
-        for(String currentType : shipSize.keySet()) {
-//            System.out.println("We have " + newShips.stream().filter(ship -> (ship.getType().equals(currentType))).count() + " ships of type " + currentType + ".");
+        for(String currentType : shipTypes.keySet())
             if (newShips.stream().filter(ship -> (ship.getType().equals(currentType))).count() > 1)
                 return new ResponseEntity<>(makeMap("error", "Too many " + currentType + "!"), HttpStatus.FORBIDDEN);
-        }
 
         // Check that ships don't overlap
         for(Ship ship1 : newShips)for(Ship ship2 : newShips)if(ship1 != ship2)
@@ -81,13 +79,15 @@ public class ShipsController {
     }
 
     private String shipValidity(Ship ship){
-        if(shipSize.get(ship.getType())  != ship.getLocations().size())
+        if(!shipTypes.keySet().contains(ship.getType()))
+            return "Invalid type of ship.";
+        if(shipTypes.get(ship.getType())  != ship.getLocations().size())
             return "Ship\'s \'length\' and \'type\' don\'t match!";
 
         for(String location : ship.getLocations())if(outOfBoundsLocation(location))
             return "Location out of bounds.";
 
-        int length = shipSize.get(ship.getType());
+        int length = shipTypes.get(ship.getType());
         Set<Character> row = getRows(ship);
         Set<Integer> column = getColumns(ship);
 

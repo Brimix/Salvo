@@ -20,7 +20,7 @@ public class Util {
         return map;
     }
 
-    public static Map<String, Integer> shipSize = Stream.of(
+    public static Map<String, Integer> shipTypes = Stream.of(
         new Object[][]{
             {"carrier", 5},
             {"battleship", 4},
