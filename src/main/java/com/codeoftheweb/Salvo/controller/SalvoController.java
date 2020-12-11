@@ -3,24 +3,16 @@ package com.codeoftheweb.Salvo.controller;
 import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.model.Player;
 import com.codeoftheweb.Salvo.model.Salvo;
-import com.codeoftheweb.Salvo.model.Ship;
 import com.codeoftheweb.Salvo.repository.GamePlayerRepository;
 import com.codeoftheweb.Salvo.repository.PlayerRepository;
 import com.codeoftheweb.Salvo.repository.SalvoRepository;
-import com.codeoftheweb.Salvo.repository.ShipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
-
 import static com.codeoftheweb.Salvo.util.Util.*;
-import static com.codeoftheweb.Salvo.util.Util.shipTypes;
-import static java.util.Collections.max;
-import static java.util.Collections.min;
 
 @RestController
 @RequestMapping("/api")
