@@ -5,6 +5,9 @@ import org.springframework.security.core.Authentication;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
 
 public class Util {
     public static boolean isGuest(Authentication authentication) {
@@ -16,4 +19,13 @@ public class Util {
         map.put(key, value);
         return map;
     }
+
+    public static Map<String, Integer> shipSize = Stream.of(
+        new Object[][]{
+            {"carrier", 5},
+            {"battleship", 4},
+            {"submarine", 3},
+            {"destroyer", 3},
+            {"patrolboat", 2}
+        }).collect(toMap(data -> (String)data[0], data -> (Integer)data[1]));
 }
