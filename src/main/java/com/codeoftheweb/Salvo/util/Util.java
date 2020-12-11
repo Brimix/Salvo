@@ -1,5 +1,6 @@
 package com.codeoftheweb.Salvo.util;
 
+import com.codeoftheweb.Salvo.model.GamePlayer;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -18,6 +19,11 @@ public class Util {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put(key, value);
         return map;
+    }
+
+    public static String getGameState(GamePlayer gamePlayer){
+        if(gamePlayer.getShips().size() < 5) return "PLACESHIPS";
+        return "PLAY";
     }
 
     public static Map<String, Integer> shipTypes = Stream.of(

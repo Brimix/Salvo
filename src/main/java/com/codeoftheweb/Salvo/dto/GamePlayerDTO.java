@@ -6,6 +6,7 @@ import com.codeoftheweb.Salvo.model.Salvo;
 
 import java.util.*;
 
+import static com.codeoftheweb.Salvo.util.Util.getGameState;
 import static java.util.stream.Collectors.toList;
 
 public class GamePlayerDTO {
@@ -43,7 +44,7 @@ public class GamePlayerDTO {
         dto.put("id", gamePlayer.getId());
         dto.put("created", gamePlayer.getJoined());
 //        dto.put("gameState", "Not yet implemented.");
-        dto.put("gameState", "PLACESHIPS");
+        dto.put("gameState", getGameState(gamePlayer));
         dto.put("hits", Hitting);
         dto.put("gamePlayers", game.getGamePlayers().stream()
                                 .map(gp -> GamePlayerDTO.makeDTO(gp))
