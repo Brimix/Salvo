@@ -41,7 +41,7 @@ public class SalvoController {
         if(player != gamePlayerMe.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);
         if(!getGameState(gamePlayerMe).equals("PLAY"))
-            return new ResponseEntity<>(makeMap("error", "Playing is not allowed"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(makeMap("error", "Playing is not allowed."), HttpStatus.UNAUTHORIZED);
 
         GamePlayer gamePlayerOpponent = getOpponent(gamePlayerMe);
         if(gamePlayerOpponent == null)
@@ -52,12 +52,12 @@ public class SalvoController {
         if(status != "OK")
             return new ResponseEntity<>(makeMap("error", "Invalid salvo! " + status), HttpStatus.FORBIDDEN);
 
-        //  Check that the salvo don't overlap with previous ones
-        for(Salvo pastSalvo : gamePlayerMe.getSalvoes())
-            if(overlapSalvoes(pastSalvo, salvo))
-                return new ResponseEntity<>(makeMap("error", "Overlapping salvoes!"), HttpStatus.FORBIDDEN);
+        //  Check that the salvo doesn't overlap with previous ones
+        for(Salvo prevSalvo : gamePlayerMe.getSalvoes())
+            if(overlapSalvoes(prevSalvo, salvo))
+                return new ResponseEntity<>(makeMap("error", "You already dropped a salvo there!"), HttpStatus.FORBIDDEN);
 
-        // Validate turn
+        // Validate player's turn
         int myTurn = gamePlayerMe.getSalvoes().size();
         int opponentTurn = gamePlayerOpponent.getSalvoes().size();
         if(myTurn > opponentTurn)
