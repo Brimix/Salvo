@@ -40,6 +40,8 @@ public class SalvoController {
             return new ResponseEntity<>(makeMap("error", "Database error. GamePlayer not found."), HttpStatus.INTERNAL_SERVER_ERROR);
         if(player != gamePlayerMe.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);
+        if(!getGameState(gamePlayerMe).equals("PLAY"))
+            return new ResponseEntity<>(makeMap("error", "Playing is not allowed"), HttpStatus.UNAUTHORIZED);
 
         GamePlayer gamePlayerOpponent = getOpponent(gamePlayerMe);
         if(gamePlayerOpponent == null)
