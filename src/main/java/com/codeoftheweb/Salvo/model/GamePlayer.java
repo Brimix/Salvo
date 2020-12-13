@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.*;
 
+import static java.util.Collections.max;
+import static java.util.stream.Collectors.toList;
+
 @Entity
 public class GamePlayer {
     //~ Attributes
@@ -33,8 +36,8 @@ public class GamePlayer {
         this.joined = new Date();
         player.addGamePlayer(this);
         game.addGamePlayer(this);
-        this.ships = new HashSet<>();
-        this.salvoes = new HashSet<>();
+        this.ships = new LinkedHashSet<>();
+        this.salvoes = new LinkedHashSet<>();
     }
 
     public long getId() { return id; }
@@ -62,5 +65,11 @@ public class GamePlayer {
         if(score < 0)
             return null;
         return new Score(score, player, game);
+    }
+    // Method designed for getGameState
+    public int getTurn(){
+        if(salvoes.size() == 0)
+            return 0;
+        return max(salvoes.stream().map(salvo -> salvo.getTurn()).collect(toList()));
     }
 }

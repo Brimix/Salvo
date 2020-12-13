@@ -1,17 +1,17 @@
 package com.codeoftheweb.Salvo.dto;
 
 import com.codeoftheweb.Salvo.model.Ship;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
 public class ShipDTO {
     //~ Required from GameView DTO
-    public static Map<String, Object> makeDTO(Ship ship){
-        Map<String, Object> dto = new LinkedHashMap<>();
-        dto.put("id", ship.getId());
-        dto.put("type", ship.getType());
-        dto.put("locations", ship.getLocations());
-        return dto;
+    public long id;
+    public String type;
+    public List<String> locations;
+
+    public ShipDTO(Ship ship){
+        this.id = ship.getId();
+        this.type = ship.getType();
+        this.locations = ship.getLocations();
     }
 }

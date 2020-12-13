@@ -42,10 +42,10 @@ public class GamesController {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("player",
                 !isGuest(authentication) ?
-                PlayerDTO.makeDTO(player_rep.findByEmail(authentication.getName()).get()) :
+                new PlayerDTO(player_rep.findByEmail(authentication.getName()).get()) :
                 "Guest");
         data.put("games", game_rep.findAll().stream()
-                .map(g -> GameDTO.makeDTO(g))
+                .map(g -> new GameDTO(g))
                 .collect(toList()));
         return data;
     }
