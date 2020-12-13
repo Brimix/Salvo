@@ -2,6 +2,7 @@ package com.codeoftheweb.Salvo.controller;
 
 import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.model.Player;
+import com.codeoftheweb.Salvo.model.Salvo;
 import com.codeoftheweb.Salvo.repository.*;
 import com.codeoftheweb.Salvo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,50 +38,50 @@ public class AppController {
 
     // Methods to get JSON for each of the classes
     @RequestMapping("/playersInfo")
-    public List<Map<String, Object>> getAllPlayers() {
+    public List<PlayerDTO> getAllPlayers() {
         return player_rep.findAll().stream()
-                .map(p -> PlayerDTO.makeDTO(p))
+                .map(p -> new PlayerDTO(p))
                 .collect(toList());
     }
     @RequestMapping("/gamesInfo")
-    public List<Map<String, Object>> getAllGames(){
+    public List<GameDTO> getAllGames(){
         return game_rep.findAll().stream()
-                .map(g -> GameDTO.makeDTO(g))
+                .map(g -> new GameDTO(g))
                 .collect(toList());
     }
     @RequestMapping("/gamePlayersInfo")
-    public List<Map<String, Object>> getAllGamePlayers() {
+    public List<GamePlayerDTO> getAllGamePlayers() {
         return gp_rep.findAll().stream()
-                .map(gp -> GamePlayerDTO.makeDTO(gp))
+                .map(gp -> new GamePlayerDTO(gp))
                 .collect(toList());
     }
     @RequestMapping("/shipsInfo")
-    public List<Map<String, Object>> getAllShips() {
+    public List<ShipDTO> getAllShips() {
         return ship_rep.findAll().stream()
-                .map(s -> ShipDTO.makeDTO(s))
+                .map(s -> new ShipDTO(s))
                 .collect(toList());
     }
     @RequestMapping("/salvoesInfo")
-    public List<Map<String, Object>> getAllSalvoes() {
+    public List<SalvoDTO> getAllSalvoes() {
         return salvo_rep.findAll().stream()
-                .map(s -> SalvoDTO.makeDTO(s))
+                .map(s -> new SalvoDTO(s))
                 .collect(toList());
     }
     @RequestMapping("/scoresInfo")
-    public List<Map<String, Object>> getAllScores() {
+    public List<ScoreDTO> getAllScores() {
         return score_rep.findAll().stream()
-                .map(s -> ScoreDTO.makeDTO(s))
+                .map(s -> new ScoreDTO(s))
                 .collect(toList());
     }
 
     //~ Method to retrieve scores data to create the Leaderboard
     @RequestMapping("/leaderBoard")
-    public List<Map<String, Object>> getLeaderBoard() {
+    public List<PlayerScoreDTO> getLeaderBoard() {
         return player_rep.findAll().stream().sorted(Comparator
                 .comparingDouble(Player::getTotal)
                 .reversed()
                 )
-                .map(p -> PlayerDTO.PlayerScoreDTO(p))
+                .map(p -> new PlayerScoreDTO(p))
                 .collect(toList());
     }
 
@@ -99,7 +100,7 @@ public class AppController {
         if(player != gamePlayer.getPlayer())
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
 
-        return new ResponseEntity<>(GamePlayerDTO.gameView(gamePlayer), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new GameViewDTO(gamePlayer), HttpStatus.ACCEPTED);
     }
 
     //~ Auxiliary Game View for testing new Front End
@@ -118,6 +119,6 @@ public class AppController {
             return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
 
 
-        return new ResponseEntity<>(GamePlayerDTO.gameUltimateView(gamePlayer), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new FullGameViewDTO(gamePlayer), HttpStatus.ACCEPTED);
     }
 }
