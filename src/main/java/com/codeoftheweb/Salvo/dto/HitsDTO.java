@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 
 public class HitsDTO {
     public static List<Map<String, Object>> makeDTO(GamePlayer gp1, GamePlayer gp2){
-        // If there's less than 2 players in the list, show an empty list
+        // If there's less than 2 players in the game, show an empty list
         if(gp1 == null || gp2 == null)
             return new ArrayList<>();
 
