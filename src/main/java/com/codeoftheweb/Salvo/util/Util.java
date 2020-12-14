@@ -1,10 +1,14 @@
 package com.codeoftheweb.Salvo.util;
 
 import com.codeoftheweb.Salvo.model.GamePlayer;
+import com.codeoftheweb.Salvo.model.Salvo;
+import com.codeoftheweb.Salvo.model.Ship;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -51,4 +55,13 @@ public class Util {
         if(col < 1 || 10 < col) return true;
         return false;
     }
+
+//    static boolean dead(GamePlayer gp1, GamePlayer gp2){
+//        List<String> allLocations = new ArrayList<>();
+//        for(Salvo salvo : gp2.getSalvoes()) allLocations.addAll(salvo.getLocations());
+//
+//        for(Ship ship : gp1.getShips())if(!allLocations.containsAll(ship.getLocations()))
+//            return false;
+//        return true;
+//    }
 }
