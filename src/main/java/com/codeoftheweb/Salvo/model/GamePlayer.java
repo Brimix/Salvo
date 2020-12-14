@@ -63,4 +63,10 @@ public class GamePlayer {
             return null;
         return new Score(score, player, game);
     }
+    // Method designed for getGameState
+    public int getTurn(){
+        if(salvoes.size() == 0)
+            return 0;
+        return max(salvoes.stream().map(salvo -> salvo.getTurn()).collect(toList()));
+    }
 }

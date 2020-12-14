@@ -21,8 +21,11 @@ public class Util {
         return map;
     }
 
-    public static String getGameState(GamePlayer gamePlayer){
-        if(gamePlayer.getShips().size() < 5) return "PLACESHIPS";
+    public static String getGameState(GamePlayer me){
+        GamePlayer opp = getOpponent(me);
+        if(me.getShips().size() < 5) return "PLACESHIPS";
+        if(opp == null || opp.getShips().size() < 5) return "WAITINGFOROPP";
+        if(me.getTurn() > opp.getTurn()) return "WAIT";
         return "PLAY";
     }
 
