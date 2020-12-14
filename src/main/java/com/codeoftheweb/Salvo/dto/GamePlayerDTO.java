@@ -61,12 +61,16 @@ public class GamePlayerDTO {
         dto.put("salvoes", allSalvoes.stream()
                 .map(s -> SalvoDTO.makeDTO(s))
                 .collect(toList()));
+
         Hitting.put("self", gameHits(gamePlayer, getOpponent(gamePlayer)));
         Hitting.put("opponent", gameHits(getOpponent(gamePlayer), gamePlayer));
         return dto;
     }
 
     private static List<Map<String, Object>> gameHits(GamePlayer gp1, GamePlayer gp2){
+        if(gp1 == null || gp2 == null)
+            return new ArrayList<>();
+
         List<Map<String, Object>> hitListGame = new ArrayList<>();
         Map<String, Integer> hitCountTotal = new LinkedHashMap<>();
         for(String shipType : shipTypes.keySet()) hitCountTotal.put(shipType, 0);
