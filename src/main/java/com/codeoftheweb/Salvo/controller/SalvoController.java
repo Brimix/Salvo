@@ -3,9 +3,11 @@ package com.codeoftheweb.Salvo.controller;
 import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.model.Player;
 import com.codeoftheweb.Salvo.model.Salvo;
+import com.codeoftheweb.Salvo.model.Score;
 import com.codeoftheweb.Salvo.repository.GamePlayerRepository;
 import com.codeoftheweb.Salvo.repository.PlayerRepository;
 import com.codeoftheweb.Salvo.repository.SalvoRepository;
+import com.codeoftheweb.Salvo.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ public class SalvoController {
     private GamePlayerRepository gp_rep;
     @Autowired
     private SalvoRepository salvo_rep;
+    @Autowired
+    private ScoreRepository score_rep;
 
     @RequestMapping(path = "games/players/{gamePlayer_id}/salvoes", method = RequestMethod.POST)
     public ResponseEntity<Object> fireSalvo(@PathVariable Long gamePlayer_id, @RequestBody Salvo salvo, Authentication authentication){
@@ -69,6 +73,25 @@ public class SalvoController {
         salvo.setTurn(myTurn+1);
         gamePlayerMe.addSalvo(salvo);
         salvo_rep.save(salvo);
+
+        // If this shot ends the game, then its finished
+        if(gamePlayerMe.getTurn() == gamePlayerOpponent.getTurn() && dead(gamePlayerMe) || dead(gamePlayerOpponent)){
+            Score scoreMe = new Score();
+            Score scoreOpp = new Score();
+            if(dead(gamePlayerMe) && dead(gamePlayerOpponent)){
+                scoreMe = new Score(0.5D, gamePlayerMe);
+                scoreOpp = new Score(0.5D, gamePlayerOpponent);
+            }
+            else if(dead(gamePlayerMe)){
+                scoreMe = new Score(0.0D, gamePlayerMe);
+                scoreOpp = new Score(1.0D, gamePlayerOpponent);
+            }
+            else if(dead(gamePlayerOpponent)){
+                scoreMe = new Score(1.0D, gamePlayerMe);
+                scoreOpp = new Score(0.0D, gamePlayerOpponent);
+            }
+            score_rep.save(scoreMe); score_rep.save(scoreOpp);
+        }
         return new ResponseEntity<>(makeMap("OK", "Your salvoes were fired!"), HttpStatus.CREATED);
     }
 
