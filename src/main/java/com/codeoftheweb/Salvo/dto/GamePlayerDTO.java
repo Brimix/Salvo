@@ -63,17 +63,6 @@ public class GamePlayerDTO {
                 .collect(toList()));
         Hitting.put("self", gameHits(gamePlayer, getOpponent(gamePlayer)));
         Hitting.put("opponent", gameHits(getOpponent(gamePlayer), gamePlayer));
-
-//        Hitting.put("self", allSalvoes.stream()
-//                            .filter(salvo -> salvo.getGamePlayer() == gamePlayer)
-//                            .map(salvo -> SalvoDTO.porongaDTO(salvo))
-//                            .collect(toList()));
-//        Hitting.put("opponent", allSalvoes.stream()
-//                            .filter(salvo -> salvo.getGamePlayer() != gamePlayer)
-//                            .map(salvo -> SalvoDTO.porongaDTO(salvo))
-//                            .collect(toList()));
-//        Hitting.put("self", new ArrayList<>());
-//        Hitting.put("opponent", new ArrayList<>());
         return dto;
     }
 
