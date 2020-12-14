@@ -31,6 +31,9 @@ public class Score {
         player.addScore(this);
         game.addScore(this);
     }
+    public Score(double score, GamePlayer gamePlayer) {
+        this(score, gamePlayer.getPlayer(), gamePlayer.getGame());
+    }
 
     public long getId() { return id; }
     public double getScore() { return score; }
