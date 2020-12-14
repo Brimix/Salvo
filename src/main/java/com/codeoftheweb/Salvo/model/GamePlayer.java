@@ -36,8 +36,8 @@ public class GamePlayer {
         this.joined = new Date();
         player.addGamePlayer(this);
         game.addGamePlayer(this);
-        this.ships = new HashSet<>();
-        this.salvoes = new HashSet<>();
+        this.ships = new LinkedHashSet<>();
+        this.salvoes = new LinkedHashSet<>();
     }
 
     public long getId() { return id; }
