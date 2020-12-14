@@ -59,6 +59,7 @@ public class GamePlayerDTO {
         Set<Salvo> allSalvoes = new HashSet<>();
         for(GamePlayer gp : game.getGamePlayers()) allSalvoes.addAll(gp.getSalvoes());
         dto.put("salvoes", allSalvoes.stream()
+                .sorted(Comparator.comparingInt(Salvo::getTurn))
                 .map(s -> SalvoDTO.makeDTO(s))
                 .collect(toList()));
 
@@ -75,7 +76,10 @@ public class GamePlayerDTO {
         Map<String, Integer> hitCountTotal = new LinkedHashMap<>();
         for(String shipType : shipTypes.keySet()) hitCountTotal.put(shipType, 0);
 
-        for(Salvo salvo : gp2.getSalvoes()){
+        List<Salvo> orderedSalvoes = gp2.getSalvoes().stream()
+                                    .sorted(Comparator.comparingInt(Salvo::getTurn))
+                                    .collect(toList());
+        for(Salvo salvo : orderedSalvoes){
             Map<String, Object>  hit = new LinkedHashMap<>();
             List<String> totalHits = new ArrayList<>();
             Map<String, Integer> hitCount = new LinkedHashMap<>();
