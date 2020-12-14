@@ -30,8 +30,6 @@ public class Score {
         this.finished = new Date();
         player.addScore(this);
         game.addScore(this);
-//        this.player = player;
-//        this.game = game;
     }
 
     public long getId() { return id; }

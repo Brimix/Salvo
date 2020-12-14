@@ -23,12 +23,12 @@ public class Game {
     //~ Constructors
     public Game() {
         this.created = new Date();
-        this.gamePlayers = new HashSet<GamePlayer>();
-    }
-    public Game(Date date) {
-        this.created = date;
         this.gamePlayers = new HashSet<>();
         this.scores = new HashSet<>();
+    }
+    public Game(Date date) {
+        this();
+        this.created = date;
     }
 
     public long getId() { return id; }
