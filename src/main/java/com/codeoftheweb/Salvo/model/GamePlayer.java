@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.*;
 
+import static java.util.Collections.max;
+import static java.util.stream.Collectors.toList;
+
 @Entity
 public class GamePlayer {
     //~ Attributes
