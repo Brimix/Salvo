@@ -2,6 +2,7 @@ package com.codeoftheweb.Salvo.util;
 
 import com.codeoftheweb.Salvo.model.GamePlayer;
 import com.codeoftheweb.Salvo.model.Salvo;
+import com.codeoftheweb.Salvo.model.Score;
 import com.codeoftheweb.Salvo.model.Ship;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,19 @@ public class Util {
         GamePlayer opp = getOpponent(me);
         if(me.getShips().size() < 5) return "PLACESHIPS";
         if(opp == null || opp.getShips().size() < 5) return "WAITINGFOROPP";
+
+        Score score = me.getPlayer().getScore(me.getGame());
+//        if(score != null){
+//            if(score.getScore() == 1.0D) return "WON";
+//            if(score.getScore() == 0.5D) return "TIE";
+//            if(score.getScore() == 0.0D) return "LOST";
+//            assert(false); // If the code reaches this line, there's been a problem
+//        }
+        if(dead(me) || dead(opp)) {
+            if(dead(me) && dead(opp)) return "TIE";
+            if(dead(me)) return "LOST";
+            if(dead(opp)) return "WON";
+        }
         if(me.getTurn() > opp.getTurn()) return "WAIT";
         return "PLAY";
     }
@@ -56,12 +70,13 @@ public class Util {
         return false;
     }
 
-//    static boolean dead(GamePlayer gp1, GamePlayer gp2){
-//        List<String> allLocations = new ArrayList<>();
-//        for(Salvo salvo : gp2.getSalvoes()) allLocations.addAll(salvo.getLocations());
-//
-//        for(Ship ship : gp1.getShips())if(!allLocations.containsAll(ship.getLocations()))
-//            return false;
-//        return true;
-//    }
+    static boolean dead(GamePlayer gp1){
+        GamePlayer gp2 = getOpponent(gp1);
+        List<String> allLocations = new ArrayList<>();
+        for(Salvo salvo : gp2.getSalvoes()) allLocations.addAll(salvo.getLocations());
+
+        for(Ship ship : gp1.getShips())if(!allLocations.containsAll(ship.getLocations()))
+            return false;
+        return true;
+    }
 }
