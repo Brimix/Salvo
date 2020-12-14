@@ -135,20 +135,47 @@ public class SalvoApplication {
 			Score K5 = GP5.getScore(1.0D);
 			Score K6 = GP6.getScore(0.0D);
 
+			Game MG = new Game();
+			GamePlayer MGP1 = new GamePlayer(P2, MG);
+			GamePlayer MGP2 = new GamePlayer(P1, MG);
+			Ship MS1 = new Ship("carrier", MGP1, Arrays.asList("A1", "A2", "A3", "A4", "A5"));
+			Ship MS2 = new Ship("battleship", MGP1, Arrays.asList("B1", "B2", "B3", "B4"));
+			Ship MS3 = new Ship("submarine", MGP1, Arrays.asList("C1", "C2", "C3"));
+			Ship MS4 = new Ship("destroyer", MGP1, Arrays.asList("D1", "D2", "D3"));
+			Ship MS5 = new Ship("patrolboat", MGP1, Arrays.asList("E1", "E2"));
+			Ship MS6 = new Ship("carrier", MGP2, Arrays.asList("A1", "A2", "A3", "A4", "A5"));
+			Ship MS7 = new Ship("battleship", MGP2, Arrays.asList("B1", "B2", "B3", "B4"));
+			Ship MS8 = new Ship("submarine", MGP2, Arrays.asList("C1", "C2", "C3"));
+			Ship MS9 = new Ship("destroyer", MGP2, Arrays.asList("D1", "D2", "D3"));
+			Ship MS10 = new Ship("patrolboat", MGP2, Arrays.asList("E1", "E2"));
+
+			Salvo MT1 = new Salvo(MGP1, 1, Arrays.asList("A1", "A2", "A3", "A4", "A5"));
+			Salvo MT2 = new Salvo(MGP1, 2, Arrays.asList("B1", "B2", "B3", "B4"));
+			Salvo MT3 = new Salvo(MGP1, 3, Arrays.asList("C1", "C2", "C3"));
+			Salvo MT4 = new Salvo(MGP1, 4, Arrays.asList("D1", "D2", "D3"));
+			Salvo MT5 = new Salvo(MGP1, 5, Arrays.asList("E1", "E2"));
+			Salvo MT6 = new Salvo(MGP2, 1, Arrays.asList("F1", "F2", "F3", "F4", "F5"));
+			Salvo MT7 = new Salvo(MGP2, 2, Arrays.asList("B1", "B2", "B3", "B4"));
+			Salvo MT8 = new Salvo(MGP2, 3, Arrays.asList("C1", "C2", "C3"));
+			Salvo MT9 = new Salvo(MGP2, 4, Arrays.asList("D1", "D2", "D3"));
+			Salvo MT10 = new Salvo(MGP2, 5, Arrays.asList("E1", "E2"));
+
 			// Saving to Repositories
 			player_rep.saveAll(Arrays.asList(P1, P2, P3, P4));
-			game_rep.saveAll(Arrays.asList(G1, G2, G3, G4, G5, G6, G7, G8));
+			game_rep.saveAll(Arrays.asList(G1, G2, G3, G4, G5, G6, G7, G8, MG));
 			gp_rep.saveAll(Arrays.asList(
 					 GP1,  GP2,  GP3,  GP4,  GP5,  GP6,  GP7,  GP8,  GP9, GP10,
-					GP11, GP13, GP15, GP16));
+					GP11, GP13, GP15, GP16, MGP1, MGP2));
 			ship_rep.saveAll(Arrays.asList(
 					 S1,  S2,  S3,  S4,  S5,  S6,  S7,  S8,  S9, S10,
 					S11, S12, S13, S14, S15, S16, S17, S18, S19, S20,
-					S21, S22, S23, S24, S25, S26, S27));
+					S21, S22, S23, S24, S25, S26, S27,
+					MS1,  MS2,  MS3,  MS4,  MS5,  MS6,  MS7,  MS8,  MS9, MS10));
 			salvo_rep.saveAll(Arrays.asList(
 					 T1,  T2,  T3,  T4,  T5,  T6,  T7,  T8,  T9, T10,
 					T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-					T21));
+					T21,
+					MT1,  MT2,  MT3,  MT4,  MT5,  MT6,  MT7,  MT8,  MT9, MT10));
 			score_rep.saveAll(Arrays.asList(
 					K1,  K2,  K3,  K4,  K5,  K6
 			));
