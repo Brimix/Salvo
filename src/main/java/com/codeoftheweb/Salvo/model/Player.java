@@ -71,7 +71,7 @@ public class Player {
     public Score getScore(Game game){
         return scores.stream()
                 .filter(s -> s.getGame() == game)
-                .findFirst().get();
+                .findFirst().orElse(null);
     }
     public double getTotal(){
         return getWins() * 1.0D + getDraws() * 0.5D + getLoses() * 0.0D;
