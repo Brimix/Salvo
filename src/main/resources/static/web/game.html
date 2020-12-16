@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/gridstack.css" />
     <link rel="stylesheet" href="./css/gridstack-extra.css" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/result.css">
 </head>
 
 <body>
@@ -62,9 +63,29 @@
                 <br>
             </div>
         </div>
+
+<!--        <a href="#container" class="btn btn-warning">Result</a>-->
+        <div id="container">
+            <div id="resultBox" class="reveal-modal">
+                <ol id="result-box-data">
+                </ol>
+<!--                <center> <h1 style = "color:white; padding-bottom: 30px;">Victory!</h1> </center>-->
+<!--                <center> <img src="img/victory.png" width="500px"> </center>-->
+<!--                <button onclick="victorySound()">Click me</button>-->
+<!--                <button onclick="sound('victory')">Click me</button>-->
+                <center> <div class="col-sm-6"> <div class="row">
+                    <div class="col-sm-6">
+                        <center> <a href="games.html"class="btn btn-info">Go to Main Page</a></center>
+                    </div>
+                    <div class="col-sm-6">
+                        <center> <a href = "#" class="btn btn-danger">Return to GameView</a> </center>
+                    </div>
+                </div> </div> </center>
+            </div>
+        </div>
+
         <div id="battleGrids">
             <div class="row">
-
                 <div class="col-sm-6">
                     <div class="textCenter">
                         <h4 class="gridTopLabel">Your Ships</h4>
@@ -454,6 +475,8 @@
     <script src="./js/shipPlacement.js"></script>
     <script src="./js/interactsalvo.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./js/audios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
 </body>
 
 </html>

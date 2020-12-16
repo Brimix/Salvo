@@ -97,6 +97,14 @@ function refreshGameView(_url) {
                 makeGameRecordTable(gamePlayerData.hits.self, "gameRecordSelfTable");
                 $('#battleGrids').show('puff', 'slow');
                 $('#gameRecordBlock').show('puff', 'slow');
+
+                var HTML =
+                    '<center> <h1 style = "color:white; padding-bottom: 30px;">Victory! </h1> </center>'
+                    + '<center> <img src="img/victory.png" width="500px"> </center>';
+                document.getElementById("result-box-data").innerHTML = HTML;
+                sound('victory');
+                location.href = "#container";
+
                 console.log("yes you won");
             }
             if (gamePlayerData.gameState === "TIE"){
@@ -105,6 +113,14 @@ function refreshGameView(_url) {
                 makeGameRecordTable(gamePlayerData.hits.self, "gameRecordSelfTable");
                 $('#battleGrids').show('puff', 'slow');
                 $('#gameRecordBlock').show('puff', 'slow');
+
+                var HTML =
+                    '<center> <h1 style = "color:white; padding-bottom: 30px;">It is a Tie! </h1> </center>'
+                    + '<center> <img src="img/draw.png" width="500px"> </center>';
+                document.getElementById("result-box-data").innerHTML = HTML;
+                sound('draw');
+                location.href = "#container";
+
                 console.log("TIED MATCH");
             }
             if (gamePlayerData.gameState === "LOST"){
@@ -113,6 +129,14 @@ function refreshGameView(_url) {
                 makeGameRecordTable(gamePlayerData.hits.self, "gameRecordSelfTable");
                 $('#battleGrids').show('puff', 'slow');
                 $('#gameRecordBlock').show('puff', 'slow');
+
+                var HTML =
+                    '<center> <h1 style = "color:white; padding-bottom: 30px;">You are defeated...</h1> </center>'
+                    + '<center> <img src="img/defeat.png" width="500px"> </center>';
+                document.getElementById("result-box-data").innerHTML = HTML;
+                sound('defeat');
+                location.href = "#container";
+
                 console.log("OH YOU LOST");
             }
             if (gamePlayerData.gameState === "WAIT"){
