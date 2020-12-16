@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.codeoftheweb.Salvo.util.Util.isGuest;
+import static com.codeoftheweb.Salvo.util.Util.makeMap;
 
 @RestController
 @RequestMapping("/api")
@@ -30,12 +31,12 @@ public class PlayerController {
             @RequestParam String email,
             @RequestParam String password) {
 
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
+            return new ResponseEntity<>(makeMap("error", "Missing data"), HttpStatus.FORBIDDEN);
         }
 
-        if (player_rep.findByEmail(email) !=  null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+        if (player_rep.findByEmail(email).isPresent()) {
+            return new ResponseEntity<>(makeMap("error", "Email already in use"), HttpStatus.FORBIDDEN);
         }
 
         player_rep.save(new Player(name, email, passwordEncoder.encode(password)));
