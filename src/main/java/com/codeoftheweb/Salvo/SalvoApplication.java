@@ -42,7 +42,7 @@ public class SalvoApplication {
 			SalvoRepository salvo_rep,
 			ScoreRepository score_rep ){
 		return (args) -> {
-			Player P1 = new Player("Angela", "angie@proyecto.acc", passwordEncoder().encode("angie"));
+			/*Player P1 = new Player("Angela", "angie@proyecto.acc", passwordEncoder().encode("angie"));
 			Player P2 = new Player("Brian", "brian@proyecto.acc", passwordEncoder().encode("brian"));
 			Player P3 = new Player("Carlos", "charles@proyecto.acc", passwordEncoder().encode("charles"));
 			Player P4 = new Player("Daniela", "dani@proyecto.acc", passwordEncoder().encode("dani"));
@@ -175,10 +175,10 @@ public class SalvoApplication {
 					 T1,  T2,  T3,  T4,  T5,  T6,  T7,  T8,  T9, T10,
 					T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
 					T21,
-					MT1,  MT2,  MT3,  MT4, /* MT5 ,*/  MT6,  MT7,  MT8,  MT9, MT10));
+					MT1,  MT2,  MT3,  MT4, MT5 ,  MT6,  MT7,  MT8,  MT9, MT10));
 			score_rep.saveAll(Arrays.asList(
 					K1,  K2,  K3,  K4,  K5,  K6
-			));
+			));*/
 		};
 	}
 
