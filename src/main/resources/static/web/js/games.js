@@ -168,11 +168,10 @@ function updateView() {
             $("#registerForm").show("slow");
             $("#createGameForm").hide();
         } else {
-
             $('#currentPlayer').text(data.player.email);
             $('#login-form').hide("slow");
             $('#logout-form').show("slow");
-
+            $("#registerForm").hide();
         }
 }
 
