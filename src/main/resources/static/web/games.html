@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Salvo!</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <meta charset="UTF-8">
+    <title>Salvo!</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/register.css">
 </head>
 
 <body>
@@ -14,24 +15,52 @@
     <div id="loginBlock" class="row">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="currentPlayerContainer">Current player: <span id="currentPlayer"></span><form class="form" id="logout-form" onsubmit="return false">
                         <button type="submit" class="btn btn-info">Log out</button></form>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <form class="form-inline" id="login-form" onsubmit="return false">
                         <label for="username">Name:</label><input class="form-control" id="username" type="email" name="username" required>
                         <label for="password">Password:</label><input class="form-control" id="password" type="password" name="password" required>
                         <input type="submit" class="form-control submitbutton btn btn-info" name="login" value="Login" />
-                        <input type="submit" class="form-control submitbutton btn btn-info" name="signup" value="Sign Up" />
                     </form>
+                </div>
+                <div class="col-sm-2 textCenter" id="registerForm">
+                    <a href="#container" class="btn btn-warning">Register</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="container">
+        <div id="registerBox" class="reveal-modal">
+            <center>
+                <div class="col-sm-6 register-block">
+                    <h2 style = "color:white; padding-bottom: 30px;">Welcome, foreigner!</h2>
+                    <h3 id="errorSignup" class="textCenter"></h3>
+                    <form class="form-container" id="register-form" onsubmit="return false">
+                        <label for="regEmail" style = "color:white"> Email:</label> <input class="form-control" id="regEmail" type="email" name="regEmail" required>
+                        <label for="regName" style = "color:white; padding-top: 25px;">Name:</label> <input class="form-control" id="regName" type="text" name="regName" required>
+                        <label for="regPassword" style = "color:white; padding-top: 25px;">Password:</label> <input class="form-control" id="regPassword" type="password" name="regPassword" required>
+                        <div class="row" style="padding-top: 40px;">
+                            <div class="col-sm-6">
+                                <input class="form-control submitbutton btn btn-info" type="submit"  name="signup"  value="Sign Up"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href = "#" class="form-control btn btn-danger">Close</a>
+                            </div>
+                        </div>
+<!--                        <input class="form-control submitbutton btn btn-info" type="submit"  name="signup"  value="Sign Up"/> <br>-->
+<!--                        <a href = "#" class="form-control btn btn-danger">Close</a>-->
+                    </form>
+                </div>
+            </center>
+        </div>
+    </div>
+
     <h3 id="signupSuccess" class="textCenter">Player created Successfully!</h3>
-    <h3 id="errorSignup" class="textCenter"></h3>
     <h3 id="loginSuccess" class="textCenter">Login Successful!</h3>
     <h3 id="loginFailed" class="textCenter">Login failed! Bad credentials!</h3>
     <h3 id="logoutSuccess" class="textCenter">Logout Successful!</h3>
@@ -71,8 +100,8 @@
 </div>
 
 <script src="./js/popper.min.js"></script>
-  <script src="./js/jquery-3.3.1.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/games.js"></script>
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/games.js"></script>
 </body>
 </html>

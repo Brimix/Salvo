@@ -14,7 +14,6 @@ $(function() {
 
 $('#login-form').on('submit', function (event) {
     event.preventDefault();
-
     if (submitButton == "login") {
         $.post("/api/login",
             { name: $("#username").val(),
@@ -26,6 +25,7 @@ $('#login-form').on('submit', function (event) {
                 $("#password").val("");
                 updateJson();
                 $("#createGameForm").show();
+                $("#registerForm").hide();
 
             })
             .fail(function() {
@@ -37,56 +37,60 @@ $('#login-form').on('submit', function (event) {
                 // $('#loginFailed').hide( "slow" );
             })
             .always(function() {
-
             });
-
-    } else if (submitButton == "signup") {
-        $.post("/api/players",
-            { email: $("#username").val(),
-                password: $("#password").val() })
-            .done(function(data) {
-                console.log("signup ok");
-                console.log(data);
-                $('#signupSuccess').show( "slow" ).delay(2000).hide( "slow" );
-                $.post("/api/login",
-                    { name: $("#username").val(),
-                        pwd: $("#password").val() })
-                    .done(function() {
-                        console.log("login ok");
-                        $('#loginSuccess').show( "slow" ).delay(2500).hide( "slow" );
-                        $("#username").val("");
-                        $("#password").val("");
-                        updateJson();
-
-                    })
-                    .fail(function() {
-                        console.log("login failed");
-                        $('#loginFailed').show( "slow" ).delay(2000).hide( "slow" );
-                        $("#username").val("");
-                        $("#password").val("");
-                        $("#username").focus();
-                        // $('#loginFailed').hide( "slow" );
-                    })
-                    .always(function() {
-
-                    });
-            })
-            .fail(function(data) {
-                console.log("signup failed");
-                 //console.log(data);
-                $("#username").val("");
-                $("#password").val("");
-                $("#username").focus();
-                $('#errorSignup').text(data.responseJSON.error);
-                $('#errorSignup').show( "slow" ).delay(3000).hide( "slow" );
-            })
-            .always(function() {
-
-            });
-
-    } else {
-        //no button pressed
     }
+});
+
+$('#register-form').on('submit', function (event) {
+//    document.getElementById("myForm").style.display = "block";
+    $.post("/api/players",
+        {   name: $("#regName").val(),
+            email: $("#regEmail").val(),
+            password: $("#regPassword").val() })
+        .done(function(data) {
+            console.log("signup ok");
+            console.log(data);
+            location.href = "#";
+            $('#signupSuccess').show( "slow" ).delay(2000).hide( "slow" );
+            $.post("/api/login",
+                { name: $("#regEmail").val(),
+                    pwd: $("#regPassword").val() })
+                .done(function() {
+                    console.log("login ok");
+                    $('#loginSuccess').show( "slow" ).delay(2500).hide( "slow" );
+                    $("#username").val("");
+                    $("#password").val("");
+                    $("#createGameForm").show();
+                    $("#registerForm").hide();
+                    updateJson();
+                })
+                .fail(function() {
+                    console.log("register failed");
+                    $('#loginFailed').show( "slow" ).delay(2000).hide( "slow" );
+                    $("#username").val("");
+                    $("#password").val("");
+                    // $('#loginFailed').hide( "slow" );
+                })
+                .always(function() {
+
+                });
+            $("#regName").val("");
+            $("#regEmail").val("");
+            $("#regPassword").val("");
+        })
+        .fail(function(data) {
+            console.log("signup failed");
+//            console.log(data.responseJSON.error);
+//            console.log(data);
+            $("#regEmail").val("");
+            $("#regName").val("");
+            $("#regPassword").val("");
+            $("#regEmail").focus();
+            $('#errorSignup').text(data.responseJSON.error);
+            $('#errorSignup').show( "slow" ).delay(3000).hide( "slow" );
+        })
+        .always(function() {
+        });
 });
 
 $('#logout-form').on('submit', function (event) {
@@ -161,8 +165,8 @@ function updateView() {
             $('#currentPlayer').text(data.player);
             $('#logout-form').hide("slow");
             $('#login-form').show("slow");
+            $("#registerForm").show("slow");
             $("#createGameForm").hide();
-
         } else {
 
             $('#currentPlayer').text(data.player.email);
