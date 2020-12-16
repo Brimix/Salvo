@@ -75,7 +75,7 @@ public class SalvoController {
         salvo_rep.save(salvo);
 
         // If this shot ends the game, then its finished
-        if(gamePlayerMe.getTurn() == gamePlayerOpponent.getTurn() && dead(gamePlayerMe) || dead(gamePlayerOpponent)){
+        if((gamePlayerMe.getTurn() == gamePlayerOpponent.getTurn()) && (dead(gamePlayerMe) || dead(gamePlayerOpponent))){
             Score scoreMe = new Score();
             Score scoreOpp = new Score();
             if(dead(gamePlayerMe) && dead(gamePlayerOpponent)){
