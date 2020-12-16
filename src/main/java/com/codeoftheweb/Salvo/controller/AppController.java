@@ -34,7 +34,7 @@ public class AppController {
     private SalvoRepository salvo_rep;
     @Autowired
     private ScoreRepository score_rep;
-
+/*
     // Methods to get JSON for each of the classes
     @RequestMapping("/playersInfo")
     public List<Map<String, Object>> getAllPlayers() {
@@ -72,7 +72,7 @@ public class AppController {
                 .map(s -> ScoreDTO.makeDTO(s))
                 .collect(toList());
     }
-
+*/
     //~ Method to retrieve scores data to create the Leaderboard
     @RequestMapping("/leaderBoard")
     public List<Map<String, Object>> getLeaderBoard() {
@@ -85,24 +85,6 @@ public class AppController {
     }
 
     //~ Method to retrieve the game data which is shown to a player
-//    @RequestMapping(path = "/game_view/{gamePlayer_id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getGameView(@PathVariable Long gamePlayer_id, Authentication authentication) {
-        if(isGuest(authentication))
-            return new ResponseEntity<>(makeMap("error", "You are not logged in."), HttpStatus.UNAUTHORIZED);
-        Player player = player_rep.findByEmail(authentication.getName()).orElse(null);
-        if(player == null)
-            return new ResponseEntity<>(makeMap("error", "Database error. Player not found."), HttpStatus.INTERNAL_SERVER_ERROR);
-
-        GamePlayer gamePlayer = gp_rep.findById(gamePlayer_id).orElse(null);
-        if(gamePlayer == null)
-            return new ResponseEntity<>(makeMap("error", "GamePlayer not found."), HttpStatus.FORBIDDEN);
-        if(player != gamePlayer.getPlayer())
-            return new ResponseEntity<>(makeMap("error", "This is not your game!"), HttpStatus.UNAUTHORIZED);;
-
-        return new ResponseEntity<>(GamePlayerDTO.gameView(gamePlayer), HttpStatus.ACCEPTED);
-    }
-
-    //~ Auxiliary Game View for testing new Front End
     @RequestMapping(path = "/game_view/{gameplayer_id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getGameUltimateView(@PathVariable Long gameplayer_id, Authentication authentication) {
         if(isGuest(authentication))
